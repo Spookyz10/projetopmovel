@@ -17,7 +17,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
           height: 42,
           child: TextField(
             decoration: InputDecoration(
-              hintText: 'Where are you going?',
+              hintText: 'Settings!',
               prefixIcon: Icon(Icons.search),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),

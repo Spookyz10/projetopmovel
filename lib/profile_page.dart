@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,7 @@ class _SettingsPageState extends State<SettingsPage> {
         title: SizedBox(
           height: 42,
           child: Text(
-            'Configurações!',
+            'Perfil',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
