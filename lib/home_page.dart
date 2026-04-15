@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_c/explorer_page.dart';
+import 'explorer_page.dart';
+import 'profile_page.dart';
+import 'detalhes_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,8 +20,8 @@ class _HomePageState extends State<HomePage> {
     Center(child: Text('Navigation')),
     Center(child: Text('Wishlist')),
     Center(child: Text('airbnb')),
-    Center(child: Text('inbox')),
-    Center(child: Text('Settings')),
+    DetalhesPage(nomeFilme: "Vingadores Ultimato", imagem: 'assets/avengers.jpg', description: "Em Vingadores: Ultimato, após Thanos eliminar metade das criaturas vivas em Vingadores: Guerra Infinita, os heróis precisam lidar com a dor da perda de amigos e seus entes queridos. Com Tony Stark (Robert Downey Jr.) vagando perdido no espaço sem água nem comida, o Capitão América/Steve Rogers (Chris Evans) e a Viúva Negra/Natasha Romanov (Scarlett Johansson) precisam liderar a resistência contra o titã louco.", duracao: "3 Horas", avaliacao: "4.5"),
+    ProfilePage(),
   ];
 
   @override
@@ -59,8 +61,8 @@ class _HomePageState extends State<HomePage> {
           label: 'Inbox',
         ),
         BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.gear),
-          label: 'Settings',
+          icon: Icon(Icons.person),
+          label: 'Profile',
         ),
       ]),
     );

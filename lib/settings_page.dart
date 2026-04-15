@@ -1,49 +1,95 @@
 import 'package:flutter/material.dart';
 
-class ExplorerPage extends StatefulWidget {
-  const ExplorerPage({super.key});
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
 
   @override
-  State<ExplorerPage> createState() => _ExplorerPageState();
+  State<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _ExplorerPageState extends State<ExplorerPage> {
+class _SettingsPageState extends State<SettingsPage> {
+  bool notificacoes = false;
+  bool temaEscuro = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF080C15),
       appBar: AppBar(
         toolbarHeight: 72,
+        backgroundColor: Color.fromRGBO(28, 41, 66, 1),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: SizedBox(
           height: 42,
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: 'Settings!',
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Colors.purple),
-              ),
+          child: Text(
+            'Configurações!',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
         ),
       ),
       body: ListView(
         children: [
-          buildContainer(
-            urlImage:
-                'https://www.envoyage.com/sites/default/files/styles/full_size/public/Dest_Netherlands_Landing.jpg?itok=AXtp56Mm',
-            local: 'Harlingen, Netherlands',
-            dates: '18 - 23 Dec',
-            host: 'Professional Host',
-            total: '\$1,068 total',
+          Padding(
+            padding: EdgeInsets.only(left: 16),
+            child: Text(
+              'Preferências',
+              style: TextStyle(
+                fontSize: 18,
+                fontStyle: FontStyle.italic,
+                color: Colors.red,
+                fontFamily: 'Arial',
+              ),
+            ),
           ),
-          buildContainer(
-            urlImage:
-                'https://blog.theifriend.com/wp-content/uploads/2021/11/guia-de-viagem-maragogi-al-piscinas-naturais-990x556.png',
-            local: 'Maragogi, Brazil',
-            host: 'Professional Host',
-            dates: '10 Jan - 31 Dec',
-            total: '\$5,200 total',
+          Container(
+            margin: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Color(0xFF1C2942),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Color(0xFF344973), width: 5),
+            ),
+            child: Column(
+              children: [
+                buildContainer(
+                  SettingName: 'Notificações',
+                  Description: 'Ativa as noti bro.',
+                  value: notificacoes,
+                  onChanged: (val) {
+                    setState(() {
+                      notificacoes = val;
+                    });
+                  },
+                ),
+
+                Divider(
+                  color: Color(0xFF344973),
+                  thickness: 1,
+                  indent: 6,
+                  endIndent: 6,
+                ),
+
+                buildContainer(
+                  SettingName: 'Tema Escuro',
+                  Description:
+                      'Ativa o modo escuro para uma experiência mais confortável à noite.',
+                  value: temaEscuro,
+                  onChanged: (val) {
+                    setState(() {
+                      temaEscuro = val;
+                    });
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -51,51 +97,48 @@ class _ExplorerPageState extends State<ExplorerPage> {
   }
 
   buildContainer({
-    required String urlImage,
-    required String local,
-    required String host,
-    required String dates,
-    required String total,
+    required String SettingName,
+    required String Description,
+    required bool value,
+    required Function(bool) onChanged,
   }) {
     return Container(
-      margin: EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 3),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            children: [
-              ClipRRect(
-                child: Image.network(urlImage, height: 300, fit: BoxFit.cover),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              Positioned(
-                child: Icon(Icons.favorite, size: 36, color: Colors.pinkAccent),
-                top: 16,
-                right: 16,
-              ),
-            ],
+          Padding(
+            padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    SettingName,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Switch(
+                  value: value,
+                  onChanged: onChanged,
+                  activeThumbColor: Color(0xFF1F85FF),
+                  inactiveThumbColor: Color(0xFF88898D),
+                ),
+              ],
+            ),
           ),
-
-          SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                local,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16), //TextStyle(),
-              ),
-              Row(children: [Icon(Icons.star, size: 16), buildText('4.76')]),
-            ],
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+            child: Text(
+              Description,
+              style: TextStyle(fontSize: 12, color: Colors.white70),
+            ),
           ),
-          buildText(host),
-          buildText(dates),
-          buildText(total),
         ],
       ),
     );
-  }
-
-  buildText(String text) {
-    return Text(text, style: TextStyle());
   }
 }
