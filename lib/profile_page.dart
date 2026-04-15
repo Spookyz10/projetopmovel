@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'settings_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -9,7 +10,30 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String username = "Usuario";
+
   @override
+  void initState() {
+    super.initState();
+    loadUsername();
+  }
+
+  void loadUsername() async {
+    final info = await SharedPreferences.getInstance();
+    setState(() {
+      username = info.getString('username') ?? "Usuario";
+    });
+  }
+
+  void saveUsername(String newName) async {
+    final info = await SharedPreferences.getInstance();
+    await info.setString('username', newName);
+
+    setState(() {
+      username = newName;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF030D19),
@@ -27,12 +51,67 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 SizedBox(width: 30),
                 Text(
-                  'Usuario',
+                  username,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.create, color: Colors.white),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        TextEditingController controller =
+                            TextEditingController();
+                        return AlertDialog(
+                          backgroundColor: Color(0xFF1C202C),
+                          title: Row(
+                            children: [
+                              Icon(Icons.edit, color: Colors.white),
+                              SizedBox(width: 10),
+                              Text(
+                                "Editar Username",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          content: TextField(
+                            controller: controller,
+                            decoration: InputDecoration(
+                              hintText: "Digite seu username",
+                              hintStyle: TextStyle(color: Colors.grey),
+                              filled: true,
+                              fillColor: Color(0xFF030D19),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(color: Colors.white, width: 2),
+                              ),
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                if (controller.text.isNotEmpty) {
+                                  saveUsername(controller.text);
+                                }
+                                Navigator.pop(context);
+                              },
+                              child: Text("Salvar", style: TextStyle(color: Colors.white)),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Cancelar", style: TextStyle(color: Colors.white)),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                 ),
               ],
             ),
