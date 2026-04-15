@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -9,18 +8,31 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  bool notificacoes = false;
+  bool temaEscuro = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF080C15),
       appBar: AppBar(
         toolbarHeight: 72,
-        backgroundColor: Color(0xFF1C2942),
+        backgroundColor: Color.fromRGBO(28, 41, 66, 1),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: SizedBox(
           height: 42,
           child: Text(
             'Configurações!',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
@@ -38,7 +50,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
-           Container(
+          Container(
             margin: EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: Color(0xFF1C2942),
@@ -50,28 +62,46 @@ class _SettingsPageState extends State<SettingsPage> {
                 buildContainer(
                   SettingName: 'Notificações',
                   Description: 'Ativa as noti bro.',
+                  value: notificacoes,
+                  onChanged: (val) {
+                    setState(() {
+                      notificacoes = val;
+                    });
+                  },
                 ),
-                
+
                 Divider(
                   color: Color(0xFF344973),
                   thickness: 1,
                   indent: 6,
                   endIndent: 6,
                 ),
-                
+
                 buildContainer(
                   SettingName: 'Tema Escuro',
-                  Description: 'Ativa o modo escuro para uma experiência mais confortável à noite.',
+                  Description:
+                      'Ativa o modo escuro para uma experiência mais confortável à noite.',
+                  value: temaEscuro,
+                  onChanged: (val) {
+                    setState(() {
+                      temaEscuro = val;
+                    });
+                  },
                 ),
-              ]
-            )
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  buildContainer({required String SettingName, required String Description}) {
+  buildContainer({
+    required String SettingName,
+    required String Description,
+    required bool value,
+    required Function(bool) onChanged,
+  }) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 3),
       child: Column(
@@ -92,8 +122,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
                 Switch(
-                  value: true,
-                  onChanged: null,
+                  value: value,
+                  onChanged: onChanged,
+                  activeThumbColor: Color(0xFF1F85FF),
+                  inactiveThumbColor: Color(0xFF88898D),
                 ),
               ],
             ),
@@ -108,9 +140,5 @@ class _SettingsPageState extends State<SettingsPage> {
         ],
       ),
     );
-  }
-
-  buildText(String text) {
-    return Text(text, style: TextStyle());
   }
 }

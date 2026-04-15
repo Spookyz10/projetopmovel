@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'settings_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -12,97 +12,56 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF080C15),
-      appBar: AppBar(
-        toolbarHeight: 72,
-        backgroundColor: Color(0xFF1C2942),
-        title: SizedBox(
-          height: 42,
-          child: Text(
-            'Perfil',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-        ),
-      ),
-      body: ListView(
+      backgroundColor: Color(0xFF030D19),
+      body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(left: 16),
-            child: Text(
-              'Preferências',
-              style: TextStyle(
-                fontSize: 18,
-                fontStyle: FontStyle.italic,
-                color: Colors.red,
-                fontFamily: 'Arial',
-              ),
-            ),
-          ),
-           Container(
-            margin: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Color(0xFF1C2942),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Color(0xFF344973), width: 5),
-            ),
-            child: Column(
-              children: [
-                buildContainer(
-                  SettingName: 'Notificações',
-                  Description: 'Ativa as noti bro.',
-                ),
-                
-                Divider(
-                  color: Color(0xFF344973),
-                  thickness: 1,
-                  indent: 6,
-                  endIndent: 6,
-                ),
-                
-                buildContainer(
-                  SettingName: 'Tema Escuro',
-                  Description: 'Ativa o modo escuro para uma experiência mais confortável à noite.',
-                ),
-              ]
-            )
-          ),
-        ],
-      ),
-    );
-  }
-
-  buildContainer({required String SettingName, required String Description}) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 3),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+          Container(
+            padding: EdgeInsets.only(top: 60, left: 20, bottom: 30),
+            decoration: BoxDecoration(color: Color(0xFF1C202C)),
             child: Row(
               children: [
-                Expanded(
-                  child: Text(
-                    SettingName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
+                CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Color.fromARGB(255, 50, 50, 50),
+                  child: Icon(Icons.person, size: 50, color: Colors.white),
                 ),
-                Switch(
-                  value: true,
-                  onChanged: null,
+                SizedBox(width: 30),
+                Text(
+                  'Usuario',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-            child: Text(
-              Description,
-              style: TextStyle(fontSize: 12, color: Colors.white70),
+
+          Expanded(
+            child: ListView(
+              children: [
+                buildItem(
+                  icon: Icons.settings,
+                  text: 'Configurações',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            SettingsPage(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ],
@@ -110,7 +69,16 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  buildText(String text) {
-    return Text(text, style: TextStyle());
+  buildItem({
+    required IconData icon,
+    required String text,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.white),
+      title: Text(text, style: TextStyle(color: Colors.white)),
+      trailing: Icon(Icons.arrow_forward_ios, color: Colors.white),
+      onTap: onTap,
+    );
   }
 }
