@@ -37,10 +37,18 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  void saveScreen(bool newState) async {
+    final info = await SharedPreferences.getInstance();
+    await info.setBool('fullScreen', newState);
+    setState(() {
+      fullScreen = newState;
+    });
+  }
+
   void loadScreen() async {
     final info = await SharedPreferences.getInstance();
     final state = info.getBool('fullScreen') ?? false;
-
+    
     setState(() {
       fullScreen = state;
     });
@@ -50,21 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
     else {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    };
-
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.light,
-      )
-    );
-  }
-
-  void saveScreen(bool newState) async {
-    final info = await SharedPreferences.getInstance();
-    await info.setBool('fullScreen', newState);
-    setState(() {
-      fullScreen = newState;
-    });
+    }
   }
 
   Widget build(BuildContext context) {

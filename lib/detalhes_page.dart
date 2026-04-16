@@ -216,16 +216,99 @@ class _DetalhesPageState extends State<DetalhesPage> {
 
                   SizedBox(height: 6),
 
+                  Row(
+                    spacing: 12,
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 300,
+                        margin: EdgeInsets.only(left: 5),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color.fromARGB(255, 255, 200, 0),
+                              Color.fromARGB(255, 255, 157, 0),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: ElevatedButton.icon(
+                          icon: Icon(
+                            Icons.play_arrow,
+                            color: Colors.black,
+                            size: 30,
+                          ),
+                          label: Text(
+                            "Assistir Agora!",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: () {},
+
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            elevation: 0,
+                          ),
+                        ),
+                      ),
+
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF344973).withValues(alpha: 0.2),
+                          border: BoxBorder.all(
+                            color: Color(0xFF344973),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(9),
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.star_border, color: Colors.white),
+                          onPressed: () {},
+                        ),
+                      ),
+
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF344973).withValues(alpha: 0.2),
+                          border: BoxBorder.all(
+                            color: Color(0xFF344973),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(9),
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.thumb_up_outlined, color: Colors.white),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Divider(color: Color(0xFF1C2942), thickness: 2),
+
+                  SizedBox(height: 9),
+
                   Text(
                     "SINOPSE",
-                    style: TextStyle(color: Colors.white.withValues(alpha: 0.3), fontSize: 13)
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.3),
+                      fontSize: 13,
+                    ),
                   ),
 
                   SizedBox(height: 10),
 
                   Text(
                     widget.description,
-                    style: TextStyle(color: Colors.white, fontSize: 12)
+                    style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ],
               ),
