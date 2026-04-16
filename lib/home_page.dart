@@ -5,6 +5,7 @@ import 'profile_page.dart';
 import 'detalhes_page.dart';
 
 class HomePage extends StatefulWidget {
+
   const HomePage({super.key});
 
   @override
