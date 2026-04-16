@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'settings_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -12,12 +12,13 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String username = "Usuario";
   bool notificacoes = false;
-  bool temaEscuro = true;
+  bool fullScreen = false;
 
   @override
   void initState() {
     super.initState();
     loadUsername();
+    loadScreen();
   }
 
   void loadUsername() async {
@@ -33,6 +34,36 @@ class _ProfilePageState extends State<ProfilePage> {
 
     setState(() {
       username = newName;
+    });
+  }
+
+  void loadScreen() async {
+    final info = await SharedPreferences.getInstance();
+    final state = info.getBool('fullScreen') ?? false;
+
+    setState(() {
+      fullScreen = state;
+    });
+
+    if (state) {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    }
+    else {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    };
+
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+      )
+    );
+  }
+
+  void saveScreen(bool newState) async {
+    final info = await SharedPreferences.getInstance();
+    await info.setBool('fullScreen', newState);
+    setState(() {
+      fullScreen = newState;
     });
   }
 
@@ -217,14 +248,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   buildItem(
                                     icon: Icons.settings,
-                                    SettingName: 'Tema Escuro',
+                                    SettingName: 'Full Screen',
                                     Description:
-                                        'Ativa o modo escuro para uma experiência mais confortável à noite.',
-                                    value: temaEscuro,
+                                        'Esconde os botões de navegação e a barra de status',
+                                    value: fullScreen,
                                     onChanged: (val) {
-                                      setState(() {
-                                        temaEscuro = val;
-                                      });
+                                      saveScreen(val);
+                                      if (val) {
+                                        SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+                                      }
+                                      else {
+                                        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                                      }
                                     },
                                   ),
 
@@ -263,7 +298,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(color: Colors.red),
                           ),
                           icon: Icon(Icons.exit_to_app, color: Colors.red),
-                          onPressed: () {},
+                          onPressed: () {
+                            SystemNavigator.pop();
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(
                               15,
