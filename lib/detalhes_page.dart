@@ -6,6 +6,9 @@ class DetalhesPage extends StatefulWidget {
   final String description;
   final String duracao;
   final String avaliacao;
+  final String pg;
+  final String? genero1;
+  final String? genero2;
 
   const DetalhesPage({
     super.key,
@@ -14,6 +17,9 @@ class DetalhesPage extends StatefulWidget {
     required this.description,
     required this.duracao,
     required this.avaliacao,
+    required this.pg,
+    this.genero1,
+    this.genero2,
   });
 
   @override
@@ -24,10 +30,10 @@ class _DetalhesPageState extends State<DetalhesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 17, 27, 45),
+      backgroundColor: Color(0xFF0E0E10),
       appBar: AppBar(
         toolbarHeight: 72,
-        backgroundColor: Color(0xFF1C2942),
+        backgroundColor: Color(0xFF0E0E10),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: Colors.white),
@@ -44,100 +50,208 @@ class _DetalhesPageState extends State<DetalhesPage> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 60),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Column(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
               children: [
+                Image.asset(
+                  widget.imagem,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 350,
+                ),
                 Container(
+                  width: double.infinity,
+                  height: 350,
                   decoration: BoxDecoration(
-                    color: Color(0xFF1C2942),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Color(0xFF344973), width: 5),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.transparent, Colors.black],
+                      stops: [0.0, 1.0],
+                    ),
                   ),
-                  child: Column(
+                ),
+
+                Positioned(
+                  top: 260,
+                  left: 16,
+                  child: Row(
                     children: [
-                      Text(
-                        widget.nomeFilme,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Image.asset(widget.imagem, width: 400, height: 400),
+                      if (widget.genero1 != null && widget.genero1!.isNotEmpty)
+                        buildGenero(nome: widget.genero1!),
+
+                      SizedBox(width: 10),
+
+                      if (widget.genero2 != null && widget.genero2!.isNotEmpty)
+                        buildGenero(nome: widget.genero2!),
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF1C2942),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Color(0xFF344973), width: 5),
-                      ),
-                      child: Text(
-                        "Duração: ${widget.duracao}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
 
-                    SizedBox(width: 30),
-
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF1C2942),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Color(0xFF344973), width: 5),
-                      ),
-                      child: Text(
-                        "Avaliação: ${widget.avaliacao}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: 30),
-                
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 26),
-                  child:  Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF1C2942),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Color(0xFF344973), width: 5),
-                      ),
-                      child: Text(
-                        widget.description,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
+                Positioned(
+                  top: 300,
+                  left: 16,
+                  child: Text(
+                    widget.nomeFilme,
+                    style: TextStyle(fontSize: 24, color: Colors.white),
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
+            Divider(color: Color(0xFF1C2942), thickness: 2),
+
+            SizedBox(height: 6),
+
+            Padding(
+              padding: EdgeInsets.only(left: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(
+                            255,
+                            251,
+                            193,
+                            2,
+                          ).withValues(alpha: 0.2),
+                          border: BoxBorder.all(
+                            color: Color.fromARGB(255, 251, 193, 2),
+                          ),
+                          borderRadius: BorderRadius.circular(9),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Color.fromARGB(255, 251, 193, 2),
+                            ),
+                            Text(
+                              widget.avaliacao.toUpperCase(),
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 251, 193, 2),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(width: 10),
+
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF344973).withValues(alpha: 0.2),
+                          border: BoxBorder.all(color: Color(0xFF344973)),
+                          borderRadius: BorderRadius.circular(9),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.access_time,
+                              color: Color.fromARGB(255, 112, 160, 255),
+                              size: 20,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              widget.duracao.toUpperCase(),
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 112, 160, 255),
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(width: 10),
+
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF344973).withValues(alpha: 0.2),
+                          border: BoxBorder.all(color: Color(0xFF344973)),
+                          borderRadius: BorderRadius.circular(9),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.person,
+                              color: Color.fromARGB(255, 112, 160, 255),
+                              size: 14,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              widget.pg.toUpperCase(),
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 112, 160, 255),
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Divider(color: Color(0xFF1C2942), thickness: 2),
+
+                  SizedBox(height: 6),
+
+                  Text(
+                    "SINOPSE",
+                    style: TextStyle(color: Colors.white.withValues(alpha: 0.3), fontSize: 13)
+                  ),
+
+                  SizedBox(height: 10),
+
+                  Text(
+                    widget.description,
+                    style: TextStyle(color: Colors.white, fontSize: 12)
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
+}
+
+buildGenero({required String nome}) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+    decoration: BoxDecoration(
+      color: Color(0xFF0E0E10).withValues(alpha: 0.8),
+      border: Border.all(color: Color.fromARGB(255, 251, 193, 2)),
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: Text(
+      nome.toUpperCase(),
+      style: TextStyle(
+        color: Color.fromARGB(255, 251, 193, 2),
+        fontSize: 10,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
 }
