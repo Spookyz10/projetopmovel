@@ -21,4 +21,5 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - assets/appIcon/logo.png
   uses-material-design: true
