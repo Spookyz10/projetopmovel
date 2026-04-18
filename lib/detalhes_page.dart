@@ -68,7 +68,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.transparent, Colors.black],
+                      colors: [Colors.transparent, Color(0xFF120A1D)],
                       stops: [0.0, 1.0],
                     ),
                   ),
@@ -100,7 +100,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                 ),
               ],
             ),
-            Divider(color: Color(0xFF1C2942), thickness: 2),
+            Divider(color: Color(0xFF3E1A63), thickness: 2),
 
             SizedBox(height: 6),
 
@@ -117,14 +117,9 @@ class _DetalhesPageState extends State<DetalhesPage> {
                           vertical: 10,
                         ),
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(
-                            255,
-                            251,
-                            193,
-                            2,
-                          ).withValues(alpha: 0.2),
+                          color: Color(0xFF7C3AED).withValues(alpha: 0.2),
                           border: BoxBorder.all(
-                            color: Color.fromARGB(255, 251, 193, 2),
+                            color: Color(0xFF7C3AED),
                           ),
                           borderRadius: BorderRadius.circular(9),
                         ),
@@ -132,12 +127,12 @@ class _DetalhesPageState extends State<DetalhesPage> {
                           children: [
                             Icon(
                               Icons.star,
-                              color: Color.fromARGB(255, 251, 193, 2),
+                              color: Color(0xFFB98CFF),
                             ),
                             Text(
                               widget.avaliacao.toUpperCase(),
                               style: TextStyle(
-                                color: Color.fromARGB(255, 251, 193, 2),
+                                color: Color(0xFFB98CFF),
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -154,22 +149,22 @@ class _DetalhesPageState extends State<DetalhesPage> {
                           vertical: 10,
                         ),
                         decoration: BoxDecoration(
-                          color: Color(0xFF344973).withValues(alpha: 0.2),
-                          border: BoxBorder.all(color: Color(0xFF344973)),
+                          color: Color(0xFF5B21B6).withValues(alpha: 0.2),
+                          border: BoxBorder.all(color: Color(0xFF5B21B6)),
                           borderRadius: BorderRadius.circular(9),
                         ),
                         child: Row(
                           children: [
                             Icon(
                               Icons.access_time,
-                              color: Color.fromARGB(255, 112, 160, 255),
+                              color: Color(0xFFC084FC),
                               size: 20,
                             ),
                             SizedBox(width: 5),
                             Text(
                               widget.duracao.toUpperCase(),
                               style: TextStyle(
-                                color: Color.fromARGB(255, 112, 160, 255),
+                                color: Color(0xFFC084FC),
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -186,22 +181,22 @@ class _DetalhesPageState extends State<DetalhesPage> {
                           vertical: 10,
                         ),
                         decoration: BoxDecoration(
-                          color: Color(0xFF344973).withValues(alpha: 0.2),
-                          border: BoxBorder.all(color: Color(0xFF344973)),
+                          color: Color(0xFF5B21B6).withValues(alpha: 0.2),
+                          border: BoxBorder.all(color: Color(0xFF5B21B6)),
                           borderRadius: BorderRadius.circular(9),
                         ),
                         child: Row(
                           children: [
                             Icon(
                               Icons.person,
-                              color: Color.fromARGB(255, 112, 160, 255),
+                              color: Color(0xFFC084FC),
                               size: 14,
                             ),
                             SizedBox(width: 5),
                             Text(
                               widget.pg.toUpperCase(),
                               style: TextStyle(
-                                color: Color.fromARGB(255, 112, 160, 255),
+                                color: Color(0xFFC084FC),
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -212,7 +207,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                     ],
                   ),
 
-                  Divider(color: Color(0xFF1C2942), thickness: 2),
+                  Divider(color: Color(0xFF3E1A63), thickness: 2),
 
                   SizedBox(height: 6),
 
@@ -228,8 +223,8 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [
-                              Color.fromARGB(255, 255, 200, 0),
-                              Color.fromARGB(255, 255, 157, 0),
+                              Color(0xFF8B5CF6),
+                              Color(0xFF6D28D9),
                             ],
                           ),
                           borderRadius: BorderRadius.circular(20),
@@ -237,13 +232,13 @@ class _DetalhesPageState extends State<DetalhesPage> {
                         child: ElevatedButton.icon(
                           icon: Icon(
                             Icons.play_arrow,
-                            color: Colors.black,
+                            color: Colors.white,
                             size: 30,
                           ),
                           label: Text(
                             "Assistir Agora!",
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -260,9 +255,9 @@ class _DetalhesPageState extends State<DetalhesPage> {
                         height: 60,
                         width: 60,
                         decoration: BoxDecoration(
-                          color: Color(0xFF344973).withValues(alpha: 0.2),
+                          color: Color(0xFF5B21B6).withValues(alpha: 0.2),
                           border: BoxBorder.all(
-                            color: Color(0xFF344973),
+                            color: Color(0xFF5B21B6),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(9),
@@ -277,9 +272,9 @@ class _DetalhesPageState extends State<DetalhesPage> {
                         height: 60,
                         width: 60,
                         decoration: BoxDecoration(
-                          color: Color(0xFF344973).withValues(alpha: 0.2),
+                          color: Color(0xFF5B21B6).withValues(alpha: 0.2),
                           border: BoxBorder.all(
-                            color: Color(0xFF344973),
+                            color: Color(0xFF5B21B6),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(9),
@@ -292,7 +287,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                     ],
                   ),
 
-                  Divider(color: Color(0xFF1C2942), thickness: 2),
+                  Divider(color: Color(0xFF3E1A63), thickness: 2),
 
                   SizedBox(height: 9),
 
@@ -325,13 +320,13 @@ buildGenero({required String nome}) {
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
     decoration: BoxDecoration(
       color: Color(0xFF0E0E10).withValues(alpha: 0.8),
-      border: Border.all(color: Color.fromARGB(255, 251, 193, 2)),
+      border: Border.all(color: Color(0xFF8B5CF6)),
       borderRadius: BorderRadius.circular(20),
     ),
     child: Text(
       nome.toUpperCase(),
       style: TextStyle(
-        color: Color.fromARGB(255, 251, 193, 2),
+        color: Color(0xFFB98CFF),
         fontSize: 10,
         fontWeight: FontWeight.bold,
       ),

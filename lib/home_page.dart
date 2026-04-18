@@ -5,7 +5,6 @@ import 'profile_page.dart';
 import 'detalhes_page.dart';
 
 class HomePage extends StatefulWidget {
-
   const HomePage({super.key});
 
   @override
@@ -39,60 +38,65 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color(0xFF121212),
       body: pages[selectedIndex],
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Color.fromARGB(255, 42, 42, 46),
-              width: 4,
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Color(0xFF5B21B6),
+                width: 4,
+              ),
+              borderRadius: BorderRadius.circular(20),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF1A1026),
+                  Color(0xFF120A1D),
+                ],
+              ),
             ),
-            borderRadius: BorderRadius.circular(20),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color.fromARGB(255, 27, 27, 29),
-                Color.fromARGB(255, 22, 22, 22),
+            child: BottomNavigationBar(
+              backgroundColor: Colors.transparent,
+              selectedItemColor: Color(0xFFC084FC),
+              elevation: 0,
+              unselectedItemColor: Color(0xFF8B5CF6).withValues(alpha: 0.7),
+              showUnselectedLabels: true,
+              type: BottomNavigationBarType.fixed,
+              currentIndex: selectedIndex,
+              onTap: (index) {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Explore',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.explore),
+                  label: 'Navigation',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite),
+                  label: 'Wishlist',
+                ),
+                BottomNavigationBarItem(
+                  icon: FaIcon(FontAwesomeIcons.airbnb),
+                  label: 'Trips',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.message),
+                  label: 'Inbox',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person),
+                  label: 'Profile',
+                ),
               ],
             ),
-          ),
-          child: BottomNavigationBar(
-            backgroundColor: Colors.transparent,
-            selectedItemColor: Color.fromARGB(255, 251, 193, 2),
-            elevation: 0,
-            unselectedItemColor: Colors.grey,
-            showUnselectedLabels: true,
-            type: BottomNavigationBarType.fixed,
-            currentIndex: selectedIndex,
-            onTap: (index) {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
-            items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Explore'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.explore),
-                label: 'Navigation',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'Wishlist',
-              ),
-              BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.airbnb),
-                label: 'Trips',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.message),
-                label: 'Inbox',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
           ),
         ),
       ),
