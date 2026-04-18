@@ -63,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF0A0A0A),
+      backgroundColor: Color(0xFF0D0614),
       body: Column(
         children: [
           Container(
@@ -97,15 +97,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Color.fromARGB(255, 42, 42, 46),
+                            color: Color(0xFF5B21B6),
                           ),
                           gradient: LinearGradient(
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: [
                               Colors.transparent,
-                              Color.fromARGB(100, 20, 20, 26),
-                              Color.fromARGB(255, 28, 28, 34),
+                              Color.fromARGB(100, 49, 15, 85),
+                              Color.fromARGB(255, 31, 13, 54),
                             ],
                             stops: [0.0, 0.6, 1.0],
                           ),
@@ -231,9 +231,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(15, 255, 255, 255),
+                                color: Color.fromARGB(15, 139, 92, 246),
                                 border: Border.all(
-                                  color: Color.fromARGB(255, 42, 42, 46),
+                                  color: Color(0xFF5B21B6),
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(20),
@@ -258,7 +258,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
 
                                   Divider(
-                                    color: Color.fromARGB(255, 90, 90, 90),
+                                    color: Color(0xFF7C3AED),
                                     indent: 20,
                                     endIndent: 20,
                                     thickness: 3,
@@ -298,12 +298,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(
                               15,
-                              224,
-                              74,
-                              74,
+                              139,
+                              92,
+                              246,
                             ).withValues(alpha: 0.3),
                             side: BorderSide(
-                              color: Color.fromARGB(51, 224, 74, 74),
+                              color: Color.fromARGB(51, 139, 92, 246),
                             ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -354,7 +354,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Switch(
                 value: value,
                 onChanged: onChanged,
-                activeThumbColor: Color.fromARGB(255, 251, 193, 2),
+                activeThumbColor: Color(0xFF8B5CF6),
                 inactiveThumbColor: Color.fromARGB(255, 47, 47, 47),
               ),
             ],
