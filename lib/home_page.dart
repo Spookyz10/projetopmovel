@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project_c/favoritos_page.dart';
 import 'explorer_page.dart';
 import 'profile_page.dart';
 import 'detalhes_page.dart';
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   List pages = [
     ExplorerPage(),
     Center(child: Text('Navigation')),
-    Center(child: Text('Wishlist')),
+    FavoritosPage(),
     Center(child: Text('Airbnb')),
     DetalhesPage(
       nomeFilme: "Vingadores Ultimato",
@@ -81,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.favorite),
-                  label: 'Wishlist',
+                  label: 'Favoritos',
                 ),
                 BottomNavigationBarItem(
                   icon: FaIcon(FontAwesomeIcons.airbnb),
