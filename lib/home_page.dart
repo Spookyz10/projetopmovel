@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'explorer_page.dart';
+import 'main_page.dart';
 import 'profile_page.dart';
 import 'detalhes_page.dart';
+import 'assistir_tarde.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,9 +16,9 @@ class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
 
   List pages = [
-    ExplorerPage(),
+    MainPage(),
+    AssistirPage(),
     Center(child: Text('Navigation')),
-    Center(child: Text('Wishlist')),
     Center(child: Text('Airbnb')),
     DetalhesPage(
       nomeFilme: "Vingadores Ultimato",
@@ -81,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.favorite),
-                  label: 'Wishlist',
+                  label: 'Favoritos',
                 ),
                 BottomNavigationBarItem(
                   icon: FaIcon(FontAwesomeIcons.airbnb),
