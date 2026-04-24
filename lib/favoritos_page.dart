@@ -15,17 +15,22 @@ class _FavoritosPageState extends State<FavoritosPage> {
 
       appBar: AppBar( /*Configuração da barra superior (AppBar)*/
         backgroundColor: Colors.black,
-        title: Text("Favoritos"),
+        title: Text("Favoritos", style: TextStyle(color: Colors.white),),
       ),
 
       body: ListView( /*Corpo principal da tela*/
         children: [ /*filmeItem é uma função, que eu posso colocar a imagem, nome, etc, sem precisar fazer isso repetidamente*/
-          filmeItem('assets/avengers.jpg', 'Vingadores', '2012 • Ação'),
-          filmeItem('assets/interstellar.jpg', 'Interestelar', '2014 • Ficção'),
-          filmeItem('assets/clubedaluta.jpg', 'Clube da Luta', '1999 • Drama'),
+          filmeItem('assets/limite.jpg', 'Limite', '1931 • Drama / Experimental'),
+          filmeItem('assets/deus-e-o-diabo-na-terra-do-sol.jpg', 'Deus e o diabo na terra do sol', '1964 • Drama / Faroeste / Aventura'),
+          filmeItem('assets/vidas-secas.jpg', 'Vidas Secas', '1963 • Drama'),
           filmeItem('assets/ogentesecreto.jpg', 'O Agente Secreto', '2023 • Suspense'),
-          filmeItem('assets/homem-aranha2.jpg', 'Homem-Aranha 2', '2004 • Ficção Científica'),
-          filmeItem('assets/f1filme.jpg','F1: O Filme' , 'Esporte/Ação')
+          filmeItem('assets/cabra-marcado-para-morrer.jpg', 'Cabra Marcado para Morrer', '1984 • Documentário / Drama'),
+          filmeItem('assets/terra-em-transe.jpg','Terra em Transe' , '1967 • Drama / Romance'),
+          filmeItem('assets/o-bandido-da-luz-vermelha.jpg', 'O Bandido da Luz Vermelha', '1968 • Drama / Policial'),
+          filmeItem('assets/são-paulo-e-a-sociedade-anonima.jpg', 'São Paulo e a Sociedade Anônima', '1965 • Drama / Romance'),
+          filmeItem('assets/cidade-de-deus.jpg', 'Cidade de Deus', '2002 • Drama / Crime'),
+          filmeItem('assets/o-pagador-de-promessas.jpg', 'O Pagador de Promessas', '1962 • Drama'),
+          filmeItem('assets/macunaima.jpg', 'Macunaíma', '1969 • Comédia / Fantasia / Aventura'),
         ],
       ),
     );
