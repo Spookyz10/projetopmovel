@@ -282,6 +282,35 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
 
+                      SizedBox(height: 10),
+
+                      Container(
+                        width: double.infinity,
+                        height: 90,
+                        margin: EdgeInsets.symmetric(horizontal: 30),
+                        child: ElevatedButton.icon(
+                          label: Text(
+                            "Avaliações",
+                            style: TextStyle(color: Color.fromARGB(255, 244, 219, 54)),
+                          ),
+                          icon: Icon(Icons.star, color: Color.fromARGB(255, 244, 219, 54), size: 20),
+                          onPressed: () {
+                            SystemNavigator.pop();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(186, 255, 179, 0).withValues(alpha: 0.3),
+                            side: BorderSide(
+                              color: Color.fromARGB(255, 255, 190, 59),
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: 20),
+
                       Container(
                         width: double.infinity,
                         height: 50,
@@ -296,14 +325,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             SystemNavigator.pop();
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(
-                              15,
-                              139,
-                              92,
-                              246,
-                            ).withValues(alpha: 0.3),
+                            backgroundColor: Color.fromARGB(187, 255, 0, 0).withValues(alpha: 0.3),
                             side: BorderSide(
-                              color: Color.fromARGB(51, 139, 92, 246),
+                              color: Color.fromARGB(51, 255, 0, 0),
                             ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
