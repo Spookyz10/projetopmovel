@@ -19,7 +19,7 @@ class _MainPageState extends State<MainPage> {
               Stack(
                 children: [
                   Image.asset(
-                    'assets/avengers.jpg',
+                    'assets/CidadeDeDeus.png',
                     fit: BoxFit.cover,
                     width: double.infinity,
                     height: 350,
@@ -35,64 +35,50 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                   ),
-        
                   Positioned(
                     left: 30,
                     top: 300,
                     child: Text(
-                      "Avengers",
+                      "Cidade de Deus",
                       style: TextStyle(color: Colors.white, fontSize: 30),
                     ),
                   ),
                 ],
               ),
-        
               SizedBox(height: 20),
-        
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Populares",
+                  "Popular",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
-        
               SizedBox(height: 10),
-        
               Row(
                 children: [
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/CidadeDeDeus.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
                   SizedBox(width: 23),
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/OAutoDaCompadecida.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
-        
                   SizedBox(width: 23),
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/OLoboAtrasDaPorta.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
                 ],
               ),
-        
               SizedBox(height: 30),
-        
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -100,125 +86,94 @@ class _MainPageState extends State<MainPage> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
-        
               SizedBox(height: 10),
-        
               Row(
                 children: [
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/TropaDeElite.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
                   SizedBox(width: 23),
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/OCangaceiro.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
-        
                   SizedBox(width: 23),
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/OInvasor.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
                 ],
               ),
-        
               SizedBox(height: 30),
-        
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Ação",
+                  "Comedia",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
-        
               SizedBox(height: 10),
-        
               Row(
                 children: [
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/AMulherDeTodos.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
                   SizedBox(width: 23),
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/OPalhaco.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
-        
                   SizedBox(width: 23),
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/ByeByeBrasil.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
                 ],
               ),
-        
               SizedBox(height: 30),
-        
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Ação",
+                  "Romance",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
-        
               SizedBox(height: 10),
-        
               Row(
                 children: [
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/CentralDoBrasil.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
                   SizedBox(width: 23),
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/AbrilDespedacado.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
-        
                   SizedBox(width: 23),
-                  Container(
-                    child: Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
+                  Image.asset(
+                    'assets/AHoraDaEstrela.png',
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 200,
                   ),
                 ],
               ),

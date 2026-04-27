@@ -1,26 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DetalhesPage extends StatefulWidget {
-  final String nomeFilme;
-  final String imagem;
-  final String description;
-  final String duracao;
-  final String avaliacao;
-  final String pg;
-  final String? genero1;
-  final String? genero2;
-
-  const DetalhesPage({
-    super.key,
-    required this.nomeFilme,
-    required this.imagem,
-    required this.description,
-    required this.duracao,
-    required this.avaliacao,
-    required this.pg,
-    this.genero1,
-    this.genero2,
-  });
+  const DetalhesPage({super.key});
 
   @override
   State<DetalhesPage> createState() => _DetalhesPageState();
@@ -56,7 +37,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
             Stack(
               children: [
                 Image.asset(
-                  widget.imagem,
+                  'assets/OAutoDaCompadecida.png',
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: 350,
@@ -73,37 +54,29 @@ class _DetalhesPageState extends State<DetalhesPage> {
                     ),
                   ),
                 ),
-
                 Positioned(
                   top: 260,
                   left: 16,
                   child: Row(
                     children: [
-                      if (widget.genero1 != null && widget.genero1!.isNotEmpty)
-                        buildGenero(nome: widget.genero1!),
-
+                      buildGenero(nome: "Comedia"),
                       SizedBox(width: 10),
-
-                      if (widget.genero2 != null && widget.genero2!.isNotEmpty)
-                        buildGenero(nome: widget.genero2!),
+                      buildGenero(nome: "Drama"),
                     ],
                   ),
                 ),
-
                 Positioned(
                   top: 300,
                   left: 16,
                   child: Text(
-                    widget.nomeFilme,
+                    "O Auto da Compadecida",
                     style: TextStyle(fontSize: 24, color: Colors.white),
                   ),
                 ),
               ],
             ),
             Divider(color: Color(0xFF3E1A63), thickness: 2),
-
             SizedBox(height: 6),
-
             Padding(
               padding: EdgeInsets.only(left: 30),
               child: Column(
@@ -118,7 +91,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                         ),
                         decoration: BoxDecoration(
                           color: Color(0xFF7C3AED).withValues(alpha: 0.2),
-                          border: BoxBorder.all(
+                          border: Border.all(
                             color: Color(0xFF7C3AED),
                           ),
                           borderRadius: BorderRadius.circular(9),
@@ -130,7 +103,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                               color: Color(0xFFB98CFF),
                             ),
                             Text(
-                              widget.avaliacao.toUpperCase(),
+                              "8.6",
                               style: TextStyle(
                                 color: Color(0xFFB98CFF),
                                 fontSize: 17,
@@ -140,9 +113,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                           ],
                         ),
                       ),
-
                       SizedBox(width: 10),
-
                       Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: 10,
@@ -150,7 +121,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                         ),
                         decoration: BoxDecoration(
                           color: Color(0xFF5B21B6).withValues(alpha: 0.2),
-                          border: BoxBorder.all(color: Color(0xFF5B21B6)),
+                          border: Border.all(color: Color(0xFF5B21B6)),
                           borderRadius: BorderRadius.circular(9),
                         ),
                         child: Row(
@@ -162,7 +133,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             ),
                             SizedBox(width: 5),
                             Text(
-                              widget.duracao.toUpperCase(),
+                              "1H 44MIN",
                               style: TextStyle(
                                 color: Color(0xFFC084FC),
                                 fontSize: 12,
@@ -172,9 +143,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                           ],
                         ),
                       ),
-
                       SizedBox(width: 10),
-
                       Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: 10,
@@ -182,7 +151,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                         ),
                         decoration: BoxDecoration(
                           color: Color(0xFF5B21B6).withValues(alpha: 0.2),
-                          border: BoxBorder.all(color: Color(0xFF5B21B6)),
+                          border: Border.all(color: Color(0xFF5B21B6)),
                           borderRadius: BorderRadius.circular(9),
                         ),
                         child: Row(
@@ -194,7 +163,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             ),
                             SizedBox(width: 5),
                             Text(
-                              widget.pg.toUpperCase(),
+                              "12+",
                               style: TextStyle(
                                 color: Color(0xFFC084FC),
                                 fontSize: 12,
@@ -206,11 +175,8 @@ class _DetalhesPageState extends State<DetalhesPage> {
                       ),
                     ],
                   ),
-
                   Divider(color: Color(0xFF3E1A63), thickness: 2),
-
                   SizedBox(height: 6),
-
                   Row(
                     spacing: 12,
                     children: [
@@ -243,20 +209,18 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             ),
                           ),
                           onPressed: () {},
-
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             elevation: 0,
                           ),
                         ),
                       ),
-
                       Container(
                         height: 60,
                         width: 60,
                         decoration: BoxDecoration(
                           color: Color(0xFF5B21B6).withValues(alpha: 0.2),
-                          border: BoxBorder.all(
+                          border: Border.all(
                             color: Color(0xFF5B21B6),
                             width: 2,
                           ),
@@ -267,13 +231,12 @@ class _DetalhesPageState extends State<DetalhesPage> {
                           onPressed: () {},
                         ),
                       ),
-
                       Container(
                         height: 60,
                         width: 60,
                         decoration: BoxDecoration(
                           color: Color(0xFF5B21B6).withValues(alpha: 0.2),
-                          border: BoxBorder.all(
+                          border: Border.all(
                             color: Color(0xFF5B21B6),
                             width: 2,
                           ),
@@ -286,11 +249,8 @@ class _DetalhesPageState extends State<DetalhesPage> {
                       ),
                     ],
                   ),
-
                   Divider(color: Color(0xFF3E1A63), thickness: 2),
-
                   SizedBox(height: 9),
-
                   Text(
                     "SINOPSE",
                     style: TextStyle(
@@ -298,11 +258,9 @@ class _DetalhesPageState extends State<DetalhesPage> {
                       fontSize: 13,
                     ),
                   ),
-
                   SizedBox(height: 10),
-
                   Text(
-                    widget.description,
+                    "As aventuras de João Grilo e Chicó, dois nordestinos pobres que vivem de golpes para sobreviver. Eles enfrentam cangaceiros, um padeiro avarento e até um julgamento divino, sempre com muito humor e críticas sociais.",
                     style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ],
