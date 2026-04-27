@@ -23,11 +23,12 @@ class _AssistirPageState extends State<AssistirPage> {
             spacing: 12,
             runSpacing: 12,
             children: [
+
               Container(
                 child: Stack(
                   children: [
                     Image.asset(
-                      'assets/avengers.jpg',
+                      'assets/AHoraDaEstrela.png',
                       fit: BoxFit.cover,
                       width: 150,
                       height: 200,
@@ -36,8 +37,8 @@ class _AssistirPageState extends State<AssistirPage> {
                       left: 15,
                       bottom: 10,
                       child: Text(
-                        "Avengers",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        "A Hora da Estrela",
+                        style: TextStyle(color: Colors.white, fontSize: 10),
                       ),
                     )
                   ],
@@ -48,7 +49,7 @@ class _AssistirPageState extends State<AssistirPage> {
                 child: Stack(
                   children: [
                     Image.asset(
-                      'assets/avengers.jpg',
+                      'assets/AMulherDeTodos.png',
                       fit: BoxFit.cover,
                       width: 150,
                       height: 200,
@@ -57,8 +58,8 @@ class _AssistirPageState extends State<AssistirPage> {
                       left: 15,
                       bottom: 10,
                       child: Text(
-                        "Avengers",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        "A Mulher de Todos",
+                        style: TextStyle(color: Colors.white, fontSize: 10),
                       ),
                     )
                   ],
@@ -69,7 +70,7 @@ class _AssistirPageState extends State<AssistirPage> {
                 child: Stack(
                   children: [
                     Image.asset(
-                      'assets/avengers.jpg',
+                      'assets/CentralDoBrasil.png',
                       fit: BoxFit.cover,
                       width: 150,
                       height: 200,
@@ -78,8 +79,8 @@ class _AssistirPageState extends State<AssistirPage> {
                       left: 15,
                       bottom: 10,
                       child: Text(
-                        "Avengers",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        "Central do Brasil",
+                        style: TextStyle(color: Colors.white, fontSize: 10),
                       ),
                     )
                   ],
@@ -90,7 +91,7 @@ class _AssistirPageState extends State<AssistirPage> {
                 child: Stack(
                   children: [
                     Image.asset(
-                      'assets/avengers.jpg',
+                      'assets/OAutoDaCompadecida.png',
                       fit: BoxFit.cover,
                       width: 150,
                       height: 200,
@@ -99,8 +100,8 @@ class _AssistirPageState extends State<AssistirPage> {
                       left: 15,
                       bottom: 10,
                       child: Text(
-                        "Avengers",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        "O Auto da Compadecida",
+                        style: TextStyle(color: Colors.white, fontSize: 10),
                       ),
                     )
                   ],
@@ -111,7 +112,7 @@ class _AssistirPageState extends State<AssistirPage> {
                 child: Stack(
                   children: [
                     Image.asset(
-                      'assets/avengers.jpg',
+                      'assets/OCangaceiro.png',
                       fit: BoxFit.cover,
                       width: 150,
                       height: 200,
@@ -120,76 +121,15 @@ class _AssistirPageState extends State<AssistirPage> {
                       left: 15,
                       bottom: 10,
                       child: Text(
-                        "Avengers",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        "O Cangaceiro",
+                        style: TextStyle(color: Colors.white, fontSize: 10),
                       ),
                     )
                   ],
                 )
               ), 
 
-              Container(
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
-                    Positioned(
-                      left: 15,
-                      bottom: 10,
-                      child: Text(
-                        "Avengers",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    )
-                  ],
-                )
-              ), 
-
-              Container(
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
-                    Positioned(
-                      left: 15,
-                      bottom: 10,
-                      child: Text(
-                        "Avengers",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    )
-                  ],
-                )
-              ), 
-
-              Container(
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      'assets/avengers.jpg',
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 200,
-                    ),
-                    Positioned(
-                      left: 15,
-                      bottom: 10,
-                      child: Text(
-                        "Avengers",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    )
-                  ],
-                )
-              ), 
+            
             ],
           ),
         ),
