@@ -13,6 +13,7 @@ class _AssistirPageState extends State<AssistirPage> {
     return Scaffold(
       backgroundColor: Color(0xFF0E0E10),
       appBar: AppBar(
+        backgroundColor: Color(0xFF0E0E10),
         centerTitle: true,
         title: Text("Assistir mais tarde", style: TextStyle(color: Colors.white)),
       ),

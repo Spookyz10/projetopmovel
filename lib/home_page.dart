@@ -6,6 +6,8 @@ import 'detalhes_page.dart';
 import 'assistir_tarde.dart';
 import 'busca_page.dart';
 import 'feedback_page.dart';
+import 'vistos_page.dart';
+import 'favoritos_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,8 +22,8 @@ class _HomePageState extends State<HomePage> {
   List pages = [
     MainPage(),
     AssistirPage(),
-    Center(child: Text('Navigation')),
-    Center(child: Text('Airbnb')),
+    VistosPage(),
+    FavoritosPage(),
     DetalhesPage(),
     ProfilePage(),
     BuscaPage(),
@@ -68,19 +70,13 @@ class _HomePageState extends State<HomePage> {
                   label: '',
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.favorite, color: Color(0xFF8B5CF6)),
+                  icon: Icon(Icons.star, color: Color(0xFF8B5CF6)),
                   selectedIcon: Icon(Icons.favorite, color: Color(0xFFC084FC)),
                   label: '',
                 ),
                 NavigationDestination(
-                  icon: FaIcon(
-                    FontAwesomeIcons.airbnb,
-                    color: Color(0xFF8B5CF6),
-                  ),
-                  selectedIcon: FaIcon(
-                    FontAwesomeIcons.airbnb,
-                    color: Color(0xFFC084FC),
-                  ),
+                  icon: Icon(Icons.favorite, color: Color(0xFF8B5CF6)),
+                  selectedIcon: Icon(Icons.favorite, color: Color(0xFFC084FC)),
                   label: '',
                 ),
                 NavigationDestination(
