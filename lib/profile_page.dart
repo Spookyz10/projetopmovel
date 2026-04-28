@@ -155,7 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         margin: EdgeInsets.symmetric(horizontal: 30),
                         child: ElevatedButton.icon(
                           label: Text(
-                            "Avaliações",
+                            "Feedback",
                             style: TextStyle(
                               color: Color.fromARGB(255, 244, 219, 54),
                             ),
