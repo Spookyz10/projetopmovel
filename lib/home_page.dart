@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.star, color: Color(0xFF8B5CF6)),
-                  selectedIcon: Icon(Icons.favorite, color: Color(0xFFC084FC)),
+                  selectedIcon: Icon(Icons.star, color: Color(0xFFC084FC)),
                   label: '',
                 ),
                 NavigationDestination(

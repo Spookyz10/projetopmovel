@@ -54,29 +54,32 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               SizedBox(height: 10),
-              Row(
-                children: [
-                  Image.asset(
-                    'assets/CidadeDeDeus.png',
-                    fit: BoxFit.cover,
-                    width: 150,
-                    height: 200,
-                  ),
-                  SizedBox(width: 23),
-                  Image.asset(
-                    'assets/OAutoDaCompadecida.png',
-                    fit: BoxFit.cover,
-                    width: 150,
-                    height: 200,
-                  ),
-                  SizedBox(width: 23),
-                  Image.asset(
-                    'assets/OLoboAtrasDaPorta.png',
-                    fit: BoxFit.cover,
-                    width: 150,
-                    height: 200,
-                  ),
-                ],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/CidadeDeDeus.png',
+                      fit: BoxFit.cover,
+                      width: 150,
+                      height: 200,
+                    ),
+                    SizedBox(width: 23),
+                    Image.asset(
+                      'assets/OAutoDaCompadecida.png',
+                      fit: BoxFit.cover,
+                      width: 150,
+                      height: 200,
+                    ),
+                    SizedBox(width: 23),
+                    Image.asset(
+                      'assets/OLoboAtrasDaPorta.png',
+                      fit: BoxFit.cover,
+                      width: 150,
+                      height: 200,
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 30),
               Align(
@@ -87,7 +90,9 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               SizedBox(height: 10),
-              Row(
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
                 children: [
                   Image.asset(
                     'assets/TropaDeElite.png',
@@ -111,6 +116,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
+            ),
               SizedBox(height: 30),
               Align(
                 alignment: Alignment.centerLeft,
@@ -120,7 +126,9 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               SizedBox(height: 10),
-              Row(
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
                 children: [
                   Image.asset(
                     'assets/AMulherDeTodos.png',
@@ -144,6 +152,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
+              ),
               SizedBox(height: 30),
               Align(
                 alignment: Alignment.centerLeft,
@@ -153,7 +162,9 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               SizedBox(height: 10),
-              Row(
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
                 children: [
                   Image.asset(
                     'assets/CentralDoBrasil.png',
@@ -177,7 +188,9 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
+            ),
             ],
+
           ),
         ),
       ),

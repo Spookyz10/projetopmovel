@@ -177,77 +177,80 @@ class _DetalhesPageState extends State<DetalhesPage> {
                   ),
                   Divider(color: Color(0xFF3E1A63), thickness: 2),
                   SizedBox(height: 6),
-                  Row(
-                    spacing: 12,
-                    children: [
-                      Container(
-                        height: 60,
-                        width: 300,
-                        margin: EdgeInsets.only(left: 5),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color(0xFF8B5CF6),
-                              Color(0xFF6D28D9),
-                            ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      spacing: 12,
+                      children: [
+                        Container(
+                          height: 60,
+                          width: 300,
+                          margin: EdgeInsets.only(left: 5),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color(0xFF8B5CF6),
+                                Color(0xFF6D28D9),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: ElevatedButton.icon(
-                          icon: Icon(
-                            Icons.play_arrow,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          label: Text(
-                            "Assistir Agora!",
-                            style: TextStyle(
+                          child: ElevatedButton.icon(
+                            icon: Icon(
+                              Icons.play_arrow,
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                              size: 30,
+                            ),
+                            label: Text(
+                              "Assistir Agora!",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              elevation: 0,
                             ),
                           ),
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            elevation: 0,
+                        ),
+                        Container(
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF5B21B6).withValues(alpha: 0.2),
+                            border: Border.all(
+                              color: Color(0xFF5B21B6),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(9),
+                          ),
+                          child: IconButton(
+                            icon: Icon(Icons.star_border, color: Colors.white),
+                            onPressed: () {},
                           ),
                         ),
-                      ),
-                      Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF5B21B6).withValues(alpha: 0.2),
-                          border: Border.all(
-                            color: Color(0xFF5B21B6),
-                            width: 2,
+                        Container(
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF5B21B6).withValues(alpha: 0.2),
+                            border: Border.all(
+                              color: Color(0xFF5B21B6),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(9),
                           ),
-                          borderRadius: BorderRadius.circular(9),
-                        ),
-                        child: IconButton(
-                          icon: Icon(Icons.star_border, color: Colors.white),
-                          onPressed: () {},
-                        ),
-                      ),
-                      Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF5B21B6).withValues(alpha: 0.2),
-                          border: Border.all(
-                            color: Color(0xFF5B21B6),
-                            width: 2,
+                          child: IconButton(
+                            icon: Icon(Icons.thumb_up_outlined, color: Colors.white),
+                            onPressed: () {},
                           ),
-                          borderRadius: BorderRadius.circular(9),
                         ),
-                        child: IconButton(
-                          icon: Icon(Icons.thumb_up_outlined, color: Colors.white),
-                          onPressed: () {},
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Divider(color: Color(0xFF3E1A63), thickness: 2),
                   SizedBox(height: 9),
