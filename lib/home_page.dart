@@ -4,6 +4,8 @@ import 'main_page.dart';
 import 'profile_page.dart';
 import 'detalhes_page.dart';
 import 'assistir_tarde.dart';
+import 'busca_page.dart';
+import 'feedback_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,6 +24,8 @@ class _HomePageState extends State<HomePage> {
     Center(child: Text('Airbnb')),
     DetalhesPage(),
     ProfilePage(),
+    BuscaPage(),
+    FeedbackPage(),
   ];
 
   @override
@@ -34,57 +38,70 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(
-                color: Color(0xFF5B21B6),
-                width: 4,
-              ),
+              border: Border.all(color: Color(0xFF5B21B6), width: 4),
               borderRadius: BorderRadius.circular(20),
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF1A1026),
-                  Color(0xFF120A1D),
-                ],
+                colors: [Color(0xFF1A1026), Color(0xFF120A1D)],
               ),
             ),
-            child: BottomNavigationBar(
+            child: NavigationBar(
               backgroundColor: Colors.transparent,
-              selectedItemColor: Color(0xFFC084FC),
-              elevation: 0,
-              unselectedItemColor: Color(0xFF8B5CF6).withValues(alpha: 0.7),
-              showUnselectedLabels: true,
-              type: BottomNavigationBarType.fixed,
-              currentIndex: selectedIndex,
-              onTap: (index) {
+              indicatorColor: Color(0xFF5B21B6),
+              selectedIndex: selectedIndex,
+              onDestinationSelected: (index) {
                 setState(() {
                   selectedIndex = index;
                 });
               },
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Explore',
+              labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+              destinations: [
+                NavigationDestination(
+                  icon: Icon(Icons.home, color: Color(0xFF8B5CF6)),
+                  selectedIcon: Icon(Icons.home, color: Color(0xFFC084FC)),
+                  label: '',
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.explore),
-                  label: 'Navigation',
+                NavigationDestination(
+                  icon: Icon(Icons.explore, color: Color(0xFF8B5CF6)),
+                  selectedIcon: Icon(Icons.explore, color: Color(0xFFC084FC)),
+                  label: '',
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite),
-                  label: 'Favoritos',
+                NavigationDestination(
+                  icon: Icon(Icons.favorite, color: Color(0xFF8B5CF6)),
+                  selectedIcon: Icon(Icons.favorite, color: Color(0xFFC084FC)),
+                  label: '',
                 ),
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.airbnb),
-                  label: 'Trips',
+                NavigationDestination(
+                  icon: FaIcon(
+                    FontAwesomeIcons.airbnb,
+                    color: Color(0xFF8B5CF6),
+                  ),
+                  selectedIcon: FaIcon(
+                    FontAwesomeIcons.airbnb,
+                    color: Color(0xFFC084FC),
+                  ),
+                  label: '',
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.message),
-                  label: 'Inbox',
+                NavigationDestination(
+                  icon: Icon(Icons.message, color: Color(0xFF8B5CF6)),
+                  selectedIcon: Icon(Icons.message, color: Color(0xFFC084FC)),
+                  label: '',
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Profile',
+                NavigationDestination(
+                  icon: Icon(Icons.person, color: Color(0xFF8B5CF6)),
+                  selectedIcon: Icon(Icons.person, color: Color(0xFFC084FC)),
+                  label: '',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.search, color: Color(0xFF8B5CF6)),
+                  selectedIcon: Icon(Icons.search, color: Color(0xFFC084FC)),
+                  label: '',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.feedback, color: Color(0xFF8B5CF6)),
+                  selectedIcon: Icon(Icons.feedback, color: Color(0xFFC084FC)),
+                  label: '',
                 ),
               ],
             ),
