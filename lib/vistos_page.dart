@@ -1,14 +1,16 @@
-import 'package:flutter/material.dart'; /*biblioteca principal do Flutter para construção de interfaces*/
+import 'package:flutter/material.dart';
 
-class VistosPage extends StatefulWidget { /*cria a classe*/
-  const VistosPage({super.key}); /*para o Flutter gerenciar melhor os widgets*/
+class VistosPage extends StatefulWidget {
+  const VistosPage({super.key});
 
-  @override /*salva o estado do widget*/
+  @override
   State<VistosPage> createState() => _VistosPageState();
 }
 
 class _VistosPageState extends State<VistosPage> {
   @override
+
+  /*COMEÇA MEU CÓDIGO*/
   Widget build(BuildContext context) { /*constrói a interface do widget*/
     return Scaffold( /*estrutura básica da tela*/
       backgroundColor: Colors.black, /*fundo preto*/
@@ -18,20 +20,59 @@ class _VistosPageState extends State<VistosPage> {
         title: Text("Vistos", style: TextStyle(color: Colors.white),),
       ),
 
-      body: ListView( /*lista de filmes que rola a tela*/
-        children: [ /*filmeItem é uma função que monta o card do filme, evitando repetição*/
-          filmeItem('assets/AbrilDespedacado.png', 'Abril Despedaçado', '2001 • Drama', 4),
-          filmeItem('assets/AHoraDaEstrela.png', 'A Hora da Estrela', '1985 • Drama', 5),
-          filmeItem('assets/AMulherDeTodos.png', 'A Mulher de Todos', '1969 • Comédia / Drama', 3),
-          filmeItem('assets/ByeByeBrasil.png', 'Bye Bye Brasil', '1979 • Drama / Aventura', 4),
-          filmeItem('assets/CentralDoBrasil.png', 'Central do Brasil', '1998 • Drama', 5),
-          filmeItem('assets/CidadeDeDeus.png', 'Cidade de Deus', '2002 • Drama / Crime', 5),
-          filmeItem('assets/OAutoDaCompadecida.png', 'O Auto da Compadecida', '2000 • Comédia / Drama', 4),
-          filmeItem('assets/OCangaceiro.png', 'O Cangaceiro', '1953 • Drama / Faroeste', 3),
-        ],
-      ),
-    );
-  }
+     List listaPropriedades = [
+        Propriedade(
+         urlImage: 'assets/AbrilDespedacado.png',
+         filme: 'Abril Despedaçado',
+         ano: '2001',
+         genero: 'Drama'
+        ),
+        Propriedade(
+         urlImage: 'assets/AHoraDaEstrela.png',
+         filme: 'A Hora da Estrela',
+         ano: '1985',
+         genero: 'Drama'
+        ),
+        Propriedade( /*MUDAR APARTIR DAQUIII*/
+         urlImage: 'assets/AMulherDeTodos.png',
+         filme: 'A Mulher de Todos',
+         ano: '1969',
+         genero: 'Comédia / Drama'
+        ),
+        Propriedade(
+         urlImage: 'assets/AMulherDeTodos.png',
+         filme: 'A Mulher de Todos',
+         ano: '1969',
+         genero: 'Comédia / Drama'
+        ),
+        Propriedade(
+         urlImage: 'assets/AMulherDeTodos.png',
+         filme: 'A Mulher de Todos',
+         ano: '1969',
+         genero: 'Comédia / Drama'
+        ),
+        Propriedade(
+         urlImage: 'assets/AMulherDeTodos.png',
+         filme: 'A Mulher de Todos',
+         ano: '1969',
+         genero: 'Comédia / Drama'
+                                ),
+     ]
+
+         body: ListView( /*lista de filmes que rola a tela*/
+           children: [ /*filmeItem é uma função que monta o card do filme, evitando repetição*/
+             filmeItem('assets/AbrilDespedacado.png', 'Abril Despedaçado', '2001 • Drama', 4),
+             filmeItem('assets/AHoraDaEstrela.png', 'A Hora da Estrela', '1985 • Drama', 5),
+             filmeItem('assets/AMulherDeTodos.png', 'A Mulher de Todos', '1969 • Comédia / Drama', 3),
+             filmeItem('assets/ByeByeBrasil.png', 'Bye Bye Brasil', '1979 • Drama / Aventura', 4),
+             filmeItem('assets/CentralDoBrasil.png', 'Central do Brasil', '1998 • Drama', 5),
+             filmeItem('assets/CidadeDeDeus.png', 'Cidade de Deus', '2002 • Drama / Crime', 5),
+             filmeItem('assets/OAutoDaCompadecida.png', 'O Auto da Compadecida', '2000 • Comédia / Drama', 4),
+             filmeItem('assets/OCangaceiro.png', 'O Cangaceiro', '1953 • Drama / Faroeste', 3),
+           ],
+         ),
+       );
+     }
 
   Widget filmeItem(String imagem, String nome, String info, int estrelas) { /*recebe os dados do filme*/
     return Container(
