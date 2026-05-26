@@ -91,17 +91,12 @@ class _DetalhesPageState extends State<DetalhesPage> {
                         ),
                         decoration: BoxDecoration(
                           color: Color(0xFF7C3AED).withValues(alpha: 0.2),
-                          border: Border.all(
-                            color: Color(0xFF7C3AED),
-                          ),
+                          border: Border.all(color: Color(0xFF7C3AED)),
                           borderRadius: BorderRadius.circular(9),
                         ),
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.star,
-                              color: Color(0xFFB98CFF),
-                            ),
+                            Icon(Icons.star, color: Color(0xFFB98CFF)),
                             Text(
                               "8.6",
                               style: TextStyle(
@@ -190,10 +185,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             gradient: LinearGradient(
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xFF8B5CF6),
-                                Color(0xFF6D28D9),
-                              ],
+                              colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9)],
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -213,7 +205,6 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.transparent,
-                              elevation: 0,
                             ),
                           ),
                         ),
@@ -245,7 +236,10 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             borderRadius: BorderRadius.circular(9),
                           ),
                           child: IconButton(
-                            icon: Icon(Icons.thumb_up_outlined, color: Colors.white),
+                            icon: Icon(
+                              Icons.thumb_up_outlined,
+                              color: Colors.white,
+                            ),
                             onPressed: () {},
                           ),
                         ),

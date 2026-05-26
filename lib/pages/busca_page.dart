@@ -23,7 +23,7 @@ class _BuscaPageState extends State<BuscaPage> {
         backgroundColor: const Color(0xFF0E0E10),
         title: TextField(
           controller: controller,
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             hintText: "Buscar filmes...",
             hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
@@ -35,7 +35,7 @@ class _BuscaPageState extends State<BuscaPage> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,18 +47,18 @@ class _BuscaPageState extends State<BuscaPage> {
                 fontSize: 16,
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             Wrap(
               spacing: 10,
-              children: history.map((term) {
+              children: history.map((termo) {
                 return Chip(
-                  label: Text(term),
+                  label: Text(termo),
                   backgroundColor: const Color(0xFF5B21B6),
-                  labelStyle: const TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: Colors.white),
                 );
               }).toList(),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30),
             // mais pesquisados
             Text(
               "Mais pesquisados",
@@ -67,16 +67,13 @@ class _BuscaPageState extends State<BuscaPage> {
                 fontSize: 16,
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             Expanded(
               child: ListView(
                 children: popular.map((movie) {
                   return ListTile(
-                    leading: const Icon(Icons.movie, color: Color(0xFF7C3AED)),
-                    title: Text(
-                      movie,
-                      style: const TextStyle(color: Colors.white),
-                    ),
+                    leading: Icon(Icons.movie, color: Color(0xFF7C3AED)),
+                    title: Text(movie, style: TextStyle(color: Colors.white)),
                   );
                 }).toList(),
               ),
