@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class BuscaPage extends StatefulWidget {
-  const BuscaPage({super.key});
+class FeedbackPage extends StatefulWidget {
+  const FeedbackPage({super.key});
   @override
-  State<BuscaPage> createState() => _BuscaPageState();
+  State<FeedbackPage> createState() => _FeedbackPageState();
 }
 
-class _BuscaPageState extends State<BuscaPage> {
+class _FeedbackPageState extends State<FeedbackPage> {
   TextEditingController controller = TextEditingController();
   final List<String> history = ["Cidade de Deus", "Tropa de Elite"];
   final List<String> popular = [
