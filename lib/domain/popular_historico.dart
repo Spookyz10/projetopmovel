@@ -2,7 +2,7 @@ class Popular {
   late String titulo;
 
   Popular ({
-    required this.titulo;
+    required this.titulo
   });
 
   Popular.fromJson(Map<String, dynamic> json){
@@ -14,7 +14,7 @@ class Historico {
   late String termo;
 
   Historico ({
-    required this.termo;
+    required this.termo
   });
 
   Historico.fromJson(Map<String, dynamic> json){
