@@ -33,7 +33,7 @@ class DBHelper {
 
     // tabela de histórico
 
-    String sql = '''CREATE TABLE HISTORICO (
+    '''CREATE TABLE HISTORICO (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       termo TEXT NOT NULL
     );''';

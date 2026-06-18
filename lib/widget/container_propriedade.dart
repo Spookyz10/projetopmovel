@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ContainerPropriedades extends StatefulWidget {
+  final dynamic propriedade;
+
   const ContainerPropriedades({super.key, required this.propriedade});
 
   @override
