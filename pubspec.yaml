@@ -8,6 +8,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  sqflite:
+  path:
+
   cupertino_icons: ^1.0.8
   google_fonts: 
   font_awesome_flutter: 
