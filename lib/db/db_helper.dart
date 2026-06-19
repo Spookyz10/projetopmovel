@@ -33,7 +33,7 @@ class DBHelper {
 
     // tabela de histórico
 
-    '''CREATE TABLE HISTORICO (
+    sql = '''CREATE TABLE HISTORICO (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       termo TEXT NOT NULL
     );''';
@@ -41,20 +41,22 @@ class DBHelper {
     await db.execute(sql);
 
     sql =
-      "INSERT INTO Popular (termo) VALUES ('Bacurau');";
+      "INSERT INTO Historico (termo) VALUES ('Bacurau');";
     await db.execute(sql);
 
     sql =
-      "INSERT INTO Popular (termo) VALUES ('Carandiru');";
+      "INSERT INTO Historico (termo) VALUES ('Carandiru');";
     await db.execute(sql);
 
     sql =
-      "INSERT INTO Popular (termo) VALUES ('Agente Secreto');";
+      "INSERT INTO Historico (termo) VALUES ('Agente Secreto');";
     await db.execute(sql);
 
     sql =
-      "INSERT INTO Popular (termo) VALUES ('O Auto da compadecida');";
+      "INSERT INTO Historico (termo) VALUES ('O Auto da compadecida');";
     await db.execute(sql);
 
   }
 }
+
+
