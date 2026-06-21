@@ -13,7 +13,6 @@ class DBHelper {
   }
 
   FutureOr<void> onCreateDB(Database db, int version) async {
-
     // tabela de filmes populares
 
     String sql = '''CREATE TABLE POPULAR (
@@ -23,12 +22,10 @@ class DBHelper {
 
     await db.execute(sql);
 
-    sql =
-      "INSERT INTO Popular (titulo) VALUES ('Cidade de Deus');";
+    sql = "INSERT INTO Popular (titulo) VALUES ('Cidade de Deus');";
     await db.execute(sql);
 
-    sql =
-      "INSERT INTO Popular (titulo) VALUES ('Tropa de Elite');";
+    sql = "INSERT INTO Popular (titulo) VALUES ('Tropa de Elite');";
     await db.execute(sql);
 
     // tabela de histórico
@@ -40,23 +37,26 @@ class DBHelper {
 
     await db.execute(sql);
 
-    sql =
-      "INSERT INTO Historico (termo) VALUES ('Bacurau');";
+    sql = "INSERT INTO Historico (termo) VALUES ('Bacurau');";
     await db.execute(sql);
 
-    sql =
-      "INSERT INTO Historico (termo) VALUES ('Carandiru');";
+    sql = "INSERT INTO Historico (termo) VALUES ('Carandiru');";
     await db.execute(sql);
 
-    sql =
-      "INSERT INTO Historico (termo) VALUES ('Agente Secreto');";
+    sql = "INSERT INTO Historico (termo) VALUES ('Agente Secreto');";
     await db.execute(sql);
 
-    sql =
-      "INSERT INTO Historico (termo) VALUES ('O Auto da compadecida');";
+    sql = "INSERT INTO Historico (termo) VALUES ('O Auto da compadecida');";
     await db.execute(sql);
 
+    sql = '''CREATE TABLE USUARIO (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username TEXT NOT NULL
+    );''';
+
+    await db.execute(sql);
+
+    sql = "INSERT INTO USUARIO (username) VALUES ('Usuario');";
+    await db.execute(sql);
   }
 }
-
-
