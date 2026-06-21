@@ -172,8 +172,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                   ),
                   Divider(color: Color(0xFF3E1A63), thickness: 2),
                   SizedBox(height: 6),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+                  Expanded(
                     child: Row(
                       spacing: 12,
                       children: [
@@ -240,6 +239,22 @@ class _DetalhesPageState extends State<DetalhesPage> {
                               Icons.thumb_up_outlined,
                               color: Colors.white,
                             ),
+                            onPressed: () {},
+                          ),
+                        ),
+                        Container(
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF5B21B6).withValues(alpha: 0.2),
+                            border: Border.all(
+                              color: Color(0xFF5B21B6),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(9),
+                          ),
+                          child: IconButton(
+                            icon: Icon(Icons.watch_later, color: Colors.white),
                             onPressed: () {},
                           ),
                         ),

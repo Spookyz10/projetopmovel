@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_c/db/usuario_dao.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -8,11 +9,64 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String username = "Usuario";
+  String username = "Carregando...";
+  final UsuarioDao _dao = UsuarioDao();
 
   @override
   void initState() {
     super.initState();
+    _carregarUsername();
+  }
+
+  Future<void> _carregarUsername() async {
+    String nome = await _dao.getUsername();
+    setState(() {
+      username = nome;
+    });
+  }
+
+  void _editarUsername() {
+    TextEditingController editController = TextEditingController(
+      text: username,
+    );
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Color(0xFF1A1026),
+        title: Text("Editar nome", style: TextStyle(color: Colors.white)),
+        content: TextField(
+          controller: editController,
+          style: TextStyle(color: Colors.white),
+          decoration: InputDecoration(
+            hintText: "Novo username",
+            hintStyle: TextStyle(color: Colors.white54),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFF5B21B6)),
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Cancelar", style: TextStyle(color: Colors.white54)),
+          ),
+          TextButton(
+            onPressed: () async {
+              String novoNome = editController.text.trim();
+              if (novoNome.isNotEmpty) {
+                await _dao.salvarUsername(novoNome);
+                setState(() {
+                  username = novoNome;
+                });
+              }
+              Navigator.pop(context);
+            },
+            child: Text("Salvar", style: TextStyle(color: Color(0xFF8B5CF6))),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget build(BuildContext context) {
@@ -79,12 +133,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             Text(
                               username,
-                              style: TextStyle(color: Colors.white, fontSize: 20),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
                             ),
 
                             IconButton(
                               icon: Icon(Icons.create),
-                              onPressed: () {},
+                              onPressed: _editarUsername,
                             ),
                           ],
                         ),
@@ -126,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       icon: Icons.settings,
                                       SettingName: 'Full Screen',
                                       Description:
-                                      'Esconde os botões de navegação e a barra de status',
+                                          'Esconde os botões de navegação e a barra de status',
                                     ),
 
                                     Divider(
@@ -221,7 +278,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ],
         ),
-      )
+      ),
     );
   }
 
