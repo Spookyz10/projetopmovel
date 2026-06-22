@@ -1,20 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:project_c/db/popular_dao.dart';
+import 'package:project_c/db/historico_dao.dart';
+import 'package:project_c/domain/popular_historico.dart';
+import 'package:project_c/widget/container_popular.dart';
+import 'package:project_c/widget/container_historico.dart';
 
 class BuscaPage extends StatefulWidget {
   const BuscaPage({super.key});
+
   @override
   State<BuscaPage> createState() => _BuscaPageState();
 }
-
 class _BuscaPageState extends State<BuscaPage> {
   TextEditingController controller = TextEditingController();
-  final List<String> history = ["Cidade de Deus", "Tropa de Elite"];
-  final List<String> popular = [
-    "Bacurau",
-    "Carandiru",
-    "Agente Secreto",
-    "O Auto da compadecida",
-  ];
+
+  final daoPopular = PopularDao();
+  final daoHistorico = HistoricoDao();
+
+  List<Popular> listaPopular = [];
+  List<Historico> listaHistorico = [];
+
+  @override
+  void initState() {
+    super.initState();
+    carregarDados();
+  }
+
+  void carregarDados() async {
+    var populares = await daoPopular.listarPopular();
+    var historicos = await daoHistorico.listarHistorico();
+    setState(() {
+      listaPopular = populares;
+      listaHistorico = historicos;
+    });
+  }
+
+  void adicionarAoHistorico(String termo) async {
+    if (termo.isNotEmpty) {
+      await daoHistorico.inserirHistorico(Historico(termo: termo));
+      controller.clear();
+      carregarDados(); // atualiza a tela
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +58,7 @@ class _BuscaPageState extends State<BuscaPage> {
             border: InputBorder.none,
           ),
           onSubmitted: (value) {
-            controller.clear();
+            adicionarAoHistorico(value);
           },
         ),
       ),
@@ -39,7 +67,7 @@ class _BuscaPageState extends State<BuscaPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // historico fixo
+            // histórico
             Text(
               "Histórico de Busca",
               style: TextStyle(
@@ -48,18 +76,17 @@ class _BuscaPageState extends State<BuscaPage> {
               ),
             ),
             SizedBox(height: 10),
-            Wrap(
-              spacing: 10,
-              children: history.map((termo) {
-                return Chip(
-                  label: Text(termo),
-                  backgroundColor: const Color(0xFF5B21B6),
-                  labelStyle: TextStyle(color: Colors.white),
-                );
-              }).toList(),
+            Expanded(
+              child: ListView.builder(
+                itemCount: listaHistorico.length,
+                itemBuilder: (context, index) {
+                  return ContainerHistorico(termo: listaHistorico[index].termo);
+                },
+              ),
             ),
             SizedBox(height: 30),
-            // mais pesquisados
+
+            // populares
             Text(
               "Mais pesquisados",
               style: TextStyle(
@@ -69,13 +96,11 @@ class _BuscaPageState extends State<BuscaPage> {
             ),
             SizedBox(height: 10),
             Expanded(
-              child: ListView(
-                children: popular.map((movie) {
-                  return ListTile(
-                    leading: Icon(Icons.movie, color: Color(0xFF7C3AED)),
-                    title: Text(movie, style: TextStyle(color: Colors.white)),
-                  );
-                }).toList(),
+              child: ListView.builder(
+                itemCount: listaPopular.length,
+                itemBuilder: (context, index) {
+                  return ContainerPopular(titulo: listaPopular[index].titulo);
+                },
               ),
             ),
           ],
@@ -84,3 +109,4 @@ class _BuscaPageState extends State<BuscaPage> {
     );
   }
 }
+
