@@ -13,40 +13,40 @@ class DBHelper {
   }
 
   FutureOr<void> onCreateDB(Database db, int version) async {
+    // tabela de historico
+
+    String sql = '''CREATE TABLE HISTORICO (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            termo TEXT NOT NULL
+    );''';
+
+    await db.execute(sql);
+
+    sql = "INSERT INTO Historico (titulo) VALUES ('Cidade de Deus');";
+    await db.execute(sql);
+
+    sql = "INSERT INTO Historico (titulo) VALUES ('Tropa de Elite');";
+    await db.execute(sql);
+
     // tabela de filmes populares
 
-    String sql = '''CREATE TABLE POPULAR (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            titulo TEXT NOT NULL
-    );''';
-
-    await db.execute(sql);
-
-    sql = "INSERT INTO Popular (titulo) VALUES ('Cidade de Deus');";
-    await db.execute(sql);
-
-    sql = "INSERT INTO Popular (titulo) VALUES ('Tropa de Elite');";
-    await db.execute(sql);
-
-    // tabela de histórico
-
-    sql = '''CREATE TABLE HISTORICO (
+    sql = '''CREATE TABLE POPULAR (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      termo TEXT NOT NULL
+      titulo TEXT NOT NULL
     );''';
 
     await db.execute(sql);
 
-    sql = "INSERT INTO Historico (termo) VALUES ('Bacurau');";
+    sql = "INSERT INTO Popular (termo) VALUES ('Bacurau');";
     await db.execute(sql);
 
-    sql = "INSERT INTO Historico (termo) VALUES ('Carandiru');";
+    sql = "INSERT INTO Popular (termo) VALUES ('Carandiru');";
     await db.execute(sql);
 
-    sql = "INSERT INTO Historico (termo) VALUES ('Agente Secreto');";
+    sql = "INSERT INTO Popular (termo) VALUES ('Agente Secreto');";
     await db.execute(sql);
 
-    sql = "INSERT INTO Historico (termo) VALUES ('O Auto da compadecida');";
+    sql = "INSERT INTO Popular (termo) VALUES ('O Auto da compadecida');";
     await db.execute(sql);
 
     sql = '''CREATE TABLE USUARIO (
