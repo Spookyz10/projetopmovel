@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_c/db/fake_database.dart';
-import 'package:project_c/widget/container_propriedade.dart';
+import 'package:project_c/db/propriedade_dao.dart';
+import 'package:project_c/domain/propriedade.dart';
 
 class VistosPage extends StatefulWidget {
   const VistosPage({super.key});
@@ -9,88 +9,109 @@ class VistosPage extends StatefulWidget {
   State<VistosPage> createState() => _VistosPageState();
 }
 
-backgroundColor: Colors.black,
-
-/*fundo preto*/
-appBar: AppBar(
-/*barra superior*/
-backgroundColor: Colors.black,
-title: Text("Vistos", style: TextStyle(color: Colors.white)),
-), required body,
-),
-
 class _VistosPageState extends State<VistosPage> {
+  List<Propriedade> listaPropriedades = [];
 
-    @override
-    widget build(BuildContext context){
-      return Scaffold(
-        body: ListView.builder(
-          itemCount: FakeDatabase.listaPropriedade.length,
-          itemBuilder: (context, i) {
-            return ContainerPropriedade(propriedade: FakeDatabase.listaPropriedade[i]);
-        )
-      )
-      }
-    }
-
-
-    return Scaffold(
-      /*estrutura básica da tela*/
-      backgroundColor: Colors.black,
-
-      /*fundo preto*/
-      appBar: AppBar(
-        /*barra superior*/
-        backgroundColor: Colors.black,
-        title: Text("Vistos", style: TextStyle(color: Colors.white)),
-      ), required body,
-      ),
+  @override
+  void initState() {
+    super.initState();
+    loadData();
   }
 
-  Widget filmeItem(String imagem, String nome, String info, int estrelas) {
-    /*recebe os dados do filme*/
+  loadData() async {
+    listaPropriedades = await PropriedadeDao().listarPropriedades();
+
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: const Text(
+          "Vistos",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+
+      body: ListView.builder(
+        itemCount: listaPropriedades.length,
+
+        itemBuilder: (context, index) {
+
+          Propriedade p = listaPropriedades[index];
+
+          return filmeItem(
+            p.urlImage,
+            p.filme,
+            p.ano,
+            p.genero,
+            p.nota,
+          );
+        },
+      ),
+    );
+  }
+
+  Widget filmeItem(
+      String imagem,
+      String filme,
+      String ano,
+      String genero,
+      int estrelas,
+      ) {
+
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
+
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+
         children: [
+
           Image.asset(
-            /*imagem do poster*/
             imagem,
             height: 150,
             width: 70,
             fit: BoxFit.cover,
           ),
 
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
 
-          /*espaço entre a imagem e o texto*/
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+
             children: [
-              Text(
-                /*título do filme*/
-                nome,
-                style: TextStyle(color: Colors.deepPurple, fontSize: 25),
-              ),
-
-              SizedBox(height: 20),
 
               Text(
-                /*ano e gênero*/
-                info,
-                style: TextStyle(color: Colors.grey, fontSize: 20),
+                filme,
+                style: const TextStyle(
+                  color: Colors.deepPurple,
+                  fontSize: 25,
+                ),
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
+
+              Text(
+                '$ano • $genero',
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20,
+                ),
+              ),
+
+              const SizedBox(height: 20),
 
               Row(
-                /*estrelas de avaliação*/
                 children: List.generate(
                   5,
-                  (i) => Icon(
+                      (i) => Icon(
                     Icons.star,
-                    color: i < estrelas ? Colors.deepPurple : Colors.grey,
+                    color: i < estrelas
+                        ? Colors.deepPurple
+                        : Colors.grey,
                     size: 20,
                   ),
                 ),
@@ -102,3 +123,5 @@ class _VistosPageState extends State<VistosPage> {
     );
   }
 }
+
+
