@@ -5,7 +5,7 @@ class Propriedade {
   late String filme;
   late String ano;
   late String genero;
-  late int nota; // avaliação
+  late double nota; // avaliação
   late int favorito; //pagina
 
   Propriedade({

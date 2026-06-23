@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project_c/db/assistir_mais_tarde_dao.dart';
 import 'package:project_c/db/propriedade_dao.dart';
 import 'package:project_c/domain/assistir_mais_tarde.dart';
-import 'package:project_c/db/db_helper.dart';
 
 class DetalhesPage extends StatefulWidget {
   const DetalhesPage({super.key});
@@ -33,16 +32,9 @@ class _DetalhesPageState extends State<DetalhesPage> {
   }
 
   Future<void> _verificarFavorito() async {
-    final db = await DBHelper().initDB();
-    final result = await db.rawQuery(
-      'SELECT favorito FROM PROPRIEDADE WHERE filme = ?;',
-      [_tituloFilme],
-    );
-    if (result.isNotEmpty) {
-      setState(
-        () => _favorito = (result.first['favorito'] as num).toInt() == 1,
-      );
-    }
+    final lista = await _propriedadeDao.listarPropriedades();
+    final prop = lista.firstWhere((p) => p.filme == _tituloFilme);
+    setState(() => _favorito = prop.favorito == 1);
   }
 
   Future<void> _toggleAssistirMaisTarde() async {

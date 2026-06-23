@@ -11,11 +11,20 @@ class DBHelper {
       dbPath,
       version: 4,
       onCreate: onCreateDB,
-      onUpgrade: onUpgradeDB,
+      onUpgrade: (db, oldVersion, newVersion) async {
+        await db.execute('DROP TABLE IF EXISTS HISTORICO');
+        await db.execute('DROP TABLE IF EXISTS POPULAR');
+        await db.execute('DROP TABLE IF EXISTS USUARIO');
+        await db.execute('DROP TABLE IF EXISTS PROPRIEDADE');
+        await db.execute('DROP TABLE IF EXISTS CONFIGURACAO');
+        await db.execute('DROP TABLE IF EXISTS ASSISTIR_MAIS_TARDE');
+        await onCreateDB(db, newVersion);
+      },
     );
   }
 
   FutureOr<void> onCreateDB(Database db, int version) async {
+    // tabela de historico
     await db.execute('''CREATE TABLE HISTORICO (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       termo TEXT NOT NULL
@@ -28,6 +37,7 @@ class DBHelper {
       "INSERT INTO HISTORICO (termo) VALUES ('Tropa de Elite');",
     );
 
+    // tabela de filmes populares
     await db.execute('''CREATE TABLE POPULAR (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       titulo TEXT NOT NULL
@@ -47,6 +57,7 @@ class DBHelper {
 
     await db.execute("INSERT INTO USUARIO (username) VALUES ('Usuario');");
 
+    /*KET DATABASE*/
     await db.execute('''CREATE TABLE PROPRIEDADE (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       urlimage TEXT,
@@ -99,30 +110,5 @@ class DBHelper {
       titulo TEXT NOT NULL UNIQUE
     );''');
   }
-
-  FutureOr<void> onUpgradeDB(
-    Database db,
-    int oldVersion,
-    int newVersion,
-  ) async {
-    if (oldVersion < 3) {
-      await db.execute('''CREATE TABLE IF NOT EXISTS CONFIGURACAO (
-        chave TEXT PRIMARY KEY,
-        valor TEXT NOT NULL
-      );''');
-      await db.execute(
-        "INSERT OR IGNORE INTO CONFIGURACAO (chave, valor) VALUES ('full_screen', '0');",
-      );
-      await db.execute(
-        "INSERT OR IGNORE INTO CONFIGURACAO (chave, valor) VALUES ('notificacoes', '0');",
-      );
-    }
-
-    if (oldVersion < 4) {
-      await db.execute('''CREATE TABLE IF NOT EXISTS ASSISTIR_MAIS_TARDE (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        titulo TEXT NOT NULL UNIQUE
-      );''');
-    }
-  }
 }
+//1 é favorito, 0 filme não favorito
