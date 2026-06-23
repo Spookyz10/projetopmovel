@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_c/db/assistir_mais_tarde_dao.dart';
+import 'package:project_c/domain/assistir_mais_tarde.dart';
 
 class DetalhesPage extends StatefulWidget {
   const DetalhesPage({super.key});
@@ -8,6 +10,34 @@ class DetalhesPage extends StatefulWidget {
 }
 
 class _DetalhesPageState extends State<DetalhesPage> {
+  final AssistirMaisTardeDao _assistirDao = AssistirMaisTardeDao();
+
+  static const String _tituloFilme = 'O Auto da Compadecida';
+  bool _naLista = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _verificarNaLista();
+  }
+
+  Future<void> _verificarNaLista() async {
+    final lista = await _assistirDao.listarAssistirMaisTarde();
+    final estaNA = lista.any((f) => f.titulo == _tituloFilme);
+    setState(() => _naLista = estaNA);
+  }
+
+  Future<void> _toggleAssistirMaisTarde() async {
+    if (_naLista) {
+      await _assistirDao.removerAssistirMaisTarde(_tituloFilme);
+    } else {
+      await _assistirDao.inserirAssistirMaisTarde(
+        AssistirMaisTarde(titulo: _tituloFilme),
+      );
+    }
+    setState(() => _naLista = !_naLista);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +99,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                   top: 300,
                   left: 16,
                   child: Text(
-                    "O Auto da Compadecida",
+                    _tituloFilme,
                     style: TextStyle(fontSize: 24, color: Colors.white),
                   ),
                 ),
@@ -252,16 +282,25 @@ class _DetalhesPageState extends State<DetalhesPage> {
                         child: Container(
                           height: 60,
                           decoration: BoxDecoration(
-                            color: Color(0xFF5B21B6).withValues(alpha: 0.2),
+                            color: _naLista
+                                ? Color(0xFFEC4899).withValues(alpha: 0.2)
+                                : Color(0xFF5B21B6).withValues(alpha: 0.2),
                             border: Border.all(
-                              color: Color(0xFF5B21B6),
+                              color: _naLista
+                                  ? Color(0xFFEC4899)
+                                  : Color(0xFF5B21B6),
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(9),
                           ),
                           child: IconButton(
-                            icon: Icon(Icons.watch_later, color: Colors.white),
-                            onPressed: () {},
+                            icon: Icon(
+                              Icons.watch_later,
+                              color: _naLista
+                                  ? Color(0xFFEC4899)
+                                  : Colors.white,
+                            ),
+                            onPressed: _toggleAssistirMaisTarde,
                           ),
                         ),
                       ),
@@ -292,7 +331,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
   }
 }
 
-buildGenero({required String nome}) {
+Widget buildGenero({required String nome}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
     decoration: BoxDecoration(
