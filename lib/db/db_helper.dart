@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 class DBHelper {
   Future<Database> initDB() async {
     String path = await getDatabasesPath();
-    String dbPath = join(path, 'busca.db');
+    String dbPath = join(path, 'buscaa.db');
 
     return await openDatabase(
       dbPath,
@@ -57,7 +57,7 @@ class DBHelper {
 
     await db.execute("INSERT INTO USUARIO (username) VALUES ('Usuario');");
 
-    /*KET DATABASE*/
+    //KET DATABASE
     await db.execute('''CREATE TABLE PROPRIEDADE (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       urlimage TEXT,

@@ -14,25 +14,25 @@ class PropriedadeDao {
   } // fim da parte de alvaro mateus
 
   Future<List<Propriedade>> listarPropriedades() async {
-    //Acessando o Banco de Dados
+    // db
     Database db = await DBHelper().initDB();
 
-    //Executando uma consulta SQL
+    // consultando oq pedi, as propriedades ou favoritos
     var listaResult = await db.rawQuery('SELECT * FROM PROPRIEDADE;');
 
-    //Percorrer a lista de elementos
+    //cria uma lista vazia pra procurar oq quero
     List<Propriedade> listaPropriedades = [];
     for (var json in listaResult) {
       Propriedade propriedade = Propriedade.fromJson(json);
 
-      //Add Propriedades na Lista
+      // coloca a propriedade ou favoritos na Lista
       listaPropriedades.add(propriedade);
     }
     return listaPropriedades;
     ;
   }
 
-  //lista apenas para buscar os favoritos
+  // favoritos
   Future<List<Propriedade>> listarFavoritos() async {
     Database db = await DBHelper().initDB();
 

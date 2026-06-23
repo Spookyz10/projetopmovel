@@ -1,5 +1,5 @@
 class Propriedade {
-  //Você precisa usar late porque, no construtor fromJson, as variáveis
+ // late porque, no construtor FJ, as variáveis
   // são preenchidas depois que o objeto começa a ser criado.
   late String urlImage;
   late String filme;

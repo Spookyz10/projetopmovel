@@ -27,6 +27,7 @@ class _VistosPageState extends State<VistosPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text("Vistos", style: TextStyle(color: Colors.white)),
