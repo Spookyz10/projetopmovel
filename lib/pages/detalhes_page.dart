@@ -172,14 +172,14 @@ class _DetalhesPageState extends State<DetalhesPage> {
                   ),
                   Divider(color: Color(0xFF3E1A63), thickness: 2),
                   SizedBox(height: 6),
-                  Expanded(
-                    child: Row(
-                      spacing: 12,
-                      children: [
-                        Container(
+
+                  Row(
+                    spacing: 12,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
                           height: 60,
-                          width: 300,
-                          margin: EdgeInsets.only(left: 5),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.topLeft,
@@ -207,9 +207,11 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             ),
                           ),
                         ),
-                        Container(
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
                           height: 60,
-                          width: 60,
                           decoration: BoxDecoration(
                             color: Color(0xFF5B21B6).withValues(alpha: 0.2),
                             border: Border.all(
@@ -223,9 +225,11 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             onPressed: () {},
                           ),
                         ),
-                        Container(
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
                           height: 60,
-                          width: 60,
                           decoration: BoxDecoration(
                             color: Color(0xFF5B21B6).withValues(alpha: 0.2),
                             border: Border.all(
@@ -242,9 +246,11 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             onPressed: () {},
                           ),
                         ),
-                        Container(
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
                           height: 60,
-                          width: 60,
                           decoration: BoxDecoration(
                             color: Color(0xFF5B21B6).withValues(alpha: 0.2),
                             border: Border.all(
@@ -258,9 +264,10 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             onPressed: () {},
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+
                   Divider(color: Color(0xFF3E1A63), thickness: 2),
                   SizedBox(height: 9),
                   Text(

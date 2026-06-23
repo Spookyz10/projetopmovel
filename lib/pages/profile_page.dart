@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_c/db/usuario_dao.dart';
+import 'package:project_c/db/configuracao_dao.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -10,18 +11,26 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String username = "Carregando...";
-  final UsuarioDao _dao = UsuarioDao();
+  bool fullScreen = false;
+  bool notificacoes = false;
+
+  final UsuarioDao _usuarioDao = UsuarioDao();
+  final ConfiguracaoDao _configDao = ConfiguracaoDao();
 
   @override
   void initState() {
     super.initState();
-    _carregarUsername();
+    _carregarDados();
   }
 
-  Future<void> _carregarUsername() async {
-    String nome = await _dao.getUsername();
+  Future<void> _carregarDados() async {
+    String nome = await _usuarioDao.getUsername();
+    bool fs = await _configDao.getValor('full_screen');
+    bool notif = await _configDao.getValor('notificacoes');
     setState(() {
       username = nome;
+      fullScreen = fs;
+      notificacoes = notif;
     });
   }
 
@@ -55,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () async {
               String novoNome = editController.text.trim();
               if (novoNome.isNotEmpty) {
-                await _dao.salvarUsername(novoNome);
+                await _usuarioDao.salvarUsername(novoNome);
                 setState(() {
                   username = novoNome;
                 });
@@ -69,6 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF0D0614),
@@ -91,9 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-
                   SizedBox(height: 30),
-
                   Align(
                     alignment: Alignment.center,
                     child: Column(
@@ -118,16 +126,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
-
                           child: Icon(
                             Icons.person,
                             color: Colors.white,
                             size: 50,
                           ),
                         ),
-
                         SizedBox(height: 10),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -138,16 +143,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                 fontSize: 20,
                               ),
                             ),
-
                             IconButton(
-                              icon: Icon(Icons.create),
+                              icon: Icon(Icons.create, color: Colors.white),
                               onPressed: _editarUsername,
                             ),
                           ],
                         ),
-
                         SizedBox(height: 15),
-
                         Container(
                           width: double.infinity,
                           child: Column(
@@ -181,22 +183,36 @@ class _ProfilePageState extends State<ProfilePage> {
                                   children: [
                                     buildItem(
                                       icon: Icons.settings,
-                                      SettingName: 'Full Screen',
-                                      Description:
+                                      settingName: 'Full Screen',
+                                      description:
                                           'Esconde os botões de navegação e a barra de status',
+                                      value: fullScreen,
+                                      onChanged: (val) async {
+                                        await _configDao.salvarValor(
+                                          'full_screen',
+                                          val,
+                                        );
+                                        setState(() => fullScreen = val);
+                                      },
                                     ),
-
                                     Divider(
                                       color: Color(0xFF7C3AED),
                                       indent: 20,
                                       endIndent: 20,
                                       thickness: 3,
                                     ),
-
                                     buildItem(
                                       icon: Icons.notifications,
-                                      SettingName: 'Notificações',
-                                      Description: 'Ativa as notificações.',
+                                      settingName: 'Notificações',
+                                      description: 'Ativa as notificações.',
+                                      value: notificacoes,
+                                      onChanged: (val) async {
+                                        await _configDao.salvarValor(
+                                          'notificacoes',
+                                          val,
+                                        );
+                                        setState(() => notificacoes = val);
+                                      },
                                     ),
                                   ],
                                 ),
@@ -204,9 +220,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ],
                           ),
                         ),
-
                         SizedBox(height: 10),
-
                         Container(
                           width: double.infinity,
                           height: 90,
@@ -240,9 +254,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                         ),
-
                         SizedBox(height: 20),
-
                         Container(
                           width: double.infinity,
                           height: 50,
@@ -282,10 +294,12 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  buildItem({
+  Widget buildItem({
     required IconData icon,
-    required String SettingName,
-    required String Description,
+    required String settingName,
+    required String description,
+    required bool value,
+    required ValueChanged<bool> onChanged,
   }) {
     return Padding(
       padding: EdgeInsets.all(16),
@@ -295,12 +309,10 @@ class _ProfilePageState extends State<ProfilePage> {
           Row(
             children: [
               Icon(icon, color: Colors.white),
-
               SizedBox(width: 10),
-
               Expanded(
                 child: Text(
-                  SettingName,
+                  settingName,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -308,20 +320,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-
               Switch(
-                value: false,
+                value: value,
                 activeThumbColor: Color(0xFF8B5CF6),
                 inactiveThumbColor: Color.fromARGB(255, 47, 47, 47),
-                onChanged: null,
+                onChanged: onChanged,
               ),
             ],
           ),
-
           SizedBox(height: 6),
-
           Text(
-            Description,
+            description,
             style: TextStyle(fontSize: 12, color: Colors.white70),
           ),
         ],
