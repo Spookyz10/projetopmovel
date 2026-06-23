@@ -6,12 +6,15 @@ class AssistirMaisTardeDao {
   Future<List<AssistirMaisTarde>> listarAssistirMaisTarde() async {
     Database db = await DBHelper().initDB();
 
-    var listaResult = await db.rawQuery('SELECT * FROM ASSISTIR_MAIS_TARDE;');
+    var listaResult = await db.rawQuery('''
+      SELECT A.titulo, P.urlimage
+      FROM ASSISTIR_MAIS_TARDE A
+      LEFT JOIN PROPRIEDADE P ON P.filme = A.titulo;
+    ''');
 
     List<AssistirMaisTarde> lista = [];
     for (var json in listaResult) {
-      AssistirMaisTarde filme = AssistirMaisTarde.fromJson(json);
-      lista.add(filme);
+      lista.add(AssistirMaisTarde.fromJson(json));
     }
     return lista;
   }
@@ -19,9 +22,10 @@ class AssistirMaisTardeDao {
   Future<void> inserirAssistirMaisTarde(AssistirMaisTarde filme) async {
     Database db = await DBHelper().initDB();
 
-    await db.rawInsert('INSERT INTO ASSISTIR_MAIS_TARDE (titulo) VALUES (?);', [
-      filme.titulo,
-    ]);
+    await db.rawInsert(
+      'INSERT OR IGNORE INTO ASSISTIR_MAIS_TARDE (titulo) VALUES (?);',
+      [filme.titulo],
+    );
   }
 
   Future<void> removerAssistirMaisTarde(String titulo) async {
