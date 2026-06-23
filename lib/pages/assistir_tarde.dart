@@ -55,19 +55,17 @@ class _AssistirPageState extends State<AssistirPage> {
                   style: TextStyle(color: Colors.white),
                 ),
               )
-            : SingleChildScrollView(
-                child: Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: filmes.map((filme) {
-                    return ContainerAssistir(
-                      titulo: filme.titulo,
-                      imagemPath:
-                          imagens[filme.titulo] ??
-                          'assets/OAutoDaCompadecida.png',
-                    );
-                  }).toList(),
-                ),
+            : ListView.builder(
+                itemCount: filmes.length,
+                itemBuilder: (context, index) {
+                  final filme = filmes[index];
+                  return ContainerAssistir(
+                    titulo: filme.titulo,
+                    imagemPath:
+                        imagens[filme.titulo] ??
+                        'assets/OAutoDaCompadecida.png',
+                  );
+                },
               ),
       ),
     );
