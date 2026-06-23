@@ -9,7 +9,7 @@ class DBHelper {
 
     return await openDatabase(
       dbPath,
-      version: 3,
+      version: 4,
       onCreate: onCreateDB,
       onUpgrade: onUpgradeDB,
     );
@@ -93,6 +93,11 @@ class DBHelper {
     await db.execute(
       "INSERT INTO CONFIGURACAO (chave, valor) VALUES ('notificacoes', '0');",
     );
+
+    await db.execute('''CREATE TABLE ASSISTIR_MAIS_TARDE (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      titulo TEXT NOT NULL UNIQUE
+    );''');
   }
 
   FutureOr<void> onUpgradeDB(
@@ -105,13 +110,19 @@ class DBHelper {
         chave TEXT PRIMARY KEY,
         valor TEXT NOT NULL
       );''');
-
       await db.execute(
         "INSERT OR IGNORE INTO CONFIGURACAO (chave, valor) VALUES ('full_screen', '0');",
       );
       await db.execute(
         "INSERT OR IGNORE INTO CONFIGURACAO (chave, valor) VALUES ('notificacoes', '0');",
       );
+    }
+
+    if (oldVersion < 4) {
+      await db.execute('''CREATE TABLE IF NOT EXISTS ASSISTIR_MAIS_TARDE (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        titulo TEXT NOT NULL UNIQUE
+      );''');
     }
   }
 }
