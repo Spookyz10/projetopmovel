@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:project_c/db/usuario_dao.dart';
 import 'package:project_c/db/configuracao_dao.dart';
 
+import 'package:project_c/domain/propriedade.dart';
+import 'package:project_c/widget/container_perfil.dart';
+import 'package:project_c/db/db_helper.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -13,6 +17,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String username = "Carregando...";
   bool fullScreen = false;
   bool notificacoes = false;
+  List<Propriedade> _favoritos = [];
 
   final UsuarioDao _usuarioDao = UsuarioDao();
   final ConfiguracaoDao _configDao = ConfiguracaoDao();
@@ -27,10 +32,29 @@ class _ProfilePageState extends State<ProfilePage> {
     String nome = await _usuarioDao.getUsername();
     bool fs = await _configDao.getValor('full_screen');
     bool notif = await _configDao.getValor('notificacoes');
+
+    final db = await DBHelper().initDB();
+    final result = await db.rawQuery(
+      'SELECT urlimage, filme, ano, genero, nota, favorito FROM PROPRIEDADE WHERE favorito = 1;',
+    );
+    List<Propriedade> favoritos = result
+        .map(
+          (json) => Propriedade(
+            urlImage: json['urlimage'] as String,
+            filme: json['filme'] as String,
+            ano: json['ano'] as String,
+            genero: json['genero'] as String,
+            nota: (json['nota'] as num).toInt(),
+            favorito: (json['favorito'] as num).toInt(),
+          ),
+        )
+        .toList();
+
     setState(() {
       username = nome;
       fullScreen = fs;
       notificacoes = notif;
+      _favoritos = favoritos;
     });
   }
 
@@ -220,7 +244,35 @@ class _ProfilePageState extends State<ProfilePage> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 10),
+
+                        Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Favoritos",
+                                style: TextStyle(
+                                  color: Colors.white.withValues(alpha: 0.3),
+                                  fontSize: 17,
+                                ),
+                              ),
+                              SizedBox(height: 12),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: _favoritos.length,
+                                itemBuilder: (context, index) {
+                                  return ContainerPerfil(
+                                    propriedade: _favoritos[index],
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        SizedBox(height: 20),
                         Container(
                           width: double.infinity,
                           height: 90,

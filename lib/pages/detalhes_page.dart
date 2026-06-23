@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_c/db/assistir_mais_tarde_dao.dart';
+import 'package:project_c/db/propriedade_dao.dart';
 import 'package:project_c/domain/assistir_mais_tarde.dart';
+import 'package:project_c/db/db_helper.dart';
 
 class DetalhesPage extends StatefulWidget {
   const DetalhesPage({super.key});
@@ -11,20 +13,36 @@ class DetalhesPage extends StatefulWidget {
 
 class _DetalhesPageState extends State<DetalhesPage> {
   final AssistirMaisTardeDao _assistirDao = AssistirMaisTardeDao();
+  final PropriedadeDao _propriedadeDao = PropriedadeDao();
 
   static const String _tituloFilme = 'O Auto da Compadecida';
   bool _naLista = false;
+  bool _favorito = false;
 
   @override
   void initState() {
     super.initState();
     _verificarNaLista();
+    _verificarFavorito();
   }
 
   Future<void> _verificarNaLista() async {
     final lista = await _assistirDao.listarAssistirMaisTarde();
     final estaNA = lista.any((f) => f.titulo == _tituloFilme);
     setState(() => _naLista = estaNA);
+  }
+
+  Future<void> _verificarFavorito() async {
+    final db = await DBHelper().initDB();
+    final result = await db.rawQuery(
+      'SELECT favorito FROM PROPRIEDADE WHERE filme = ?;',
+      [_tituloFilme],
+    );
+    if (result.isNotEmpty) {
+      setState(
+        () => _favorito = (result.first['favorito'] as num).toInt() == 1,
+      );
+    }
   }
 
   Future<void> _toggleAssistirMaisTarde() async {
@@ -36,6 +54,12 @@ class _DetalhesPageState extends State<DetalhesPage> {
       );
     }
     setState(() => _naLista = !_naLista);
+  }
+
+  Future<void> _toggleFavorito() async {
+    final novoValor = _favorito ? 0 : 1;
+    await _propriedadeDao.toggleFavorito(_tituloFilme, novoValor);
+    setState(() => _favorito = !_favorito);
   }
 
   @override
@@ -202,7 +226,6 @@ class _DetalhesPageState extends State<DetalhesPage> {
                   ),
                   Divider(color: Color(0xFF3E1A63), thickness: 2),
                   SizedBox(height: 6),
-
                   Row(
                     spacing: 12,
                     children: [
@@ -243,16 +266,25 @@ class _DetalhesPageState extends State<DetalhesPage> {
                         child: Container(
                           height: 60,
                           decoration: BoxDecoration(
-                            color: Color(0xFF5B21B6).withValues(alpha: 0.2),
+                            color: _favorito
+                                ? Color(0xFFEC4899).withValues(alpha: 0.2)
+                                : Color(0xFF5B21B6).withValues(alpha: 0.2),
                             border: Border.all(
-                              color: Color(0xFF5B21B6),
+                              color: _favorito
+                                  ? Color(0xFFEC4899)
+                                  : Color(0xFF5B21B6),
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(9),
                           ),
                           child: IconButton(
-                            icon: Icon(Icons.star_border, color: Colors.white),
-                            onPressed: () {},
+                            icon: Icon(
+                              _favorito ? Icons.star : Icons.star_border,
+                              color: _favorito
+                                  ? Color(0xFFEC4899)
+                                  : Colors.white,
+                            ),
+                            onPressed: _toggleFavorito,
                           ),
                         ),
                       ),
@@ -306,7 +338,6 @@ class _DetalhesPageState extends State<DetalhesPage> {
                       ),
                     ],
                   ),
-
                   Divider(color: Color(0xFF3E1A63), thickness: 2),
                   SizedBox(height: 9),
                   Text(
