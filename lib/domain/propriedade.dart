@@ -8,7 +8,6 @@ class Propriedade {
   late int nota; // avaliação
   late int favorito; //pagina
 
-
   Propriedade({
     required this.urlImage,
     required this.filme,
@@ -18,7 +17,7 @@ class Propriedade {
     required this.favorito,
   });
 
- Propriedade.fromJson(Map<String, dynamic> json) {
+  Propriedade.fromJson(Map<String, dynamic> json) {
     urlImage = json['urlimage'];
     filme = json['filme'];
     ano = json['ano'];
