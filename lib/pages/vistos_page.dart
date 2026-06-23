@@ -29,39 +29,28 @@ class _VistosPageState extends State<VistosPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text(
-          "Vistos",
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text("Vistos", style: TextStyle(color: Colors.white)),
       ),
 
       body: ListView.builder(
         itemCount: listaPropriedades.length,
 
         itemBuilder: (context, index) {
-
           Propriedade p = listaPropriedades[index];
 
-          return filmeItem(
-            p.urlImage,
-            p.filme,
-            p.ano,
-            p.genero,
-            p.nota,
-          );
+          return filmeItem(p.urlImage, p.filme, p.ano, p.genero, p.nota);
         },
       ),
     );
   }
 
   Widget filmeItem(
-      String imagem,
-      String filme,
-      String ano,
-      String genero,
-      int estrelas,
-      ) {
-
+    String imagem,
+    String filme,
+    String ano,
+    String genero,
+    double estrelas,
+  ) {
     return Container(
       margin: const EdgeInsets.all(20),
 
@@ -69,13 +58,7 @@ class _VistosPageState extends State<VistosPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
-
-          Image.asset(
-            imagem,
-            height: 150,
-            width: 70,
-            fit: BoxFit.cover,
-          ),
+          Image.asset(imagem, height: 150, width: 70, fit: BoxFit.cover),
 
           const SizedBox(width: 20),
 
@@ -83,23 +66,16 @@ class _VistosPageState extends State<VistosPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
-
               Text(
                 filme,
-                style: const TextStyle(
-                  color: Colors.deepPurple,
-                  fontSize: 25,
-                ),
+                style: const TextStyle(color: Colors.deepPurple, fontSize: 25),
               ),
 
               const SizedBox(height: 20),
 
               Text(
                 '$ano • $genero',
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 20,
-                ),
+                style: const TextStyle(color: Colors.grey, fontSize: 20),
               ),
 
               const SizedBox(height: 20),
@@ -107,11 +83,9 @@ class _VistosPageState extends State<VistosPage> {
               Row(
                 children: List.generate(
                   5,
-                      (i) => Icon(
+                  (i) => Icon(
                     Icons.star,
-                    color: i < estrelas
-                        ? Colors.deepPurple
-                        : Colors.grey,
+                    color: i < estrelas ? Colors.deepPurple : Colors.grey,
                     size: 20,
                   ),
                 ),
@@ -123,5 +97,3 @@ class _VistosPageState extends State<VistosPage> {
     );
   }
 }
-
-

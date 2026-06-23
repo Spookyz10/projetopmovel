@@ -4,7 +4,7 @@ import 'package:project_c/db/configuracao_dao.dart';
 
 import 'package:project_c/domain/propriedade.dart';
 import 'package:project_c/widget/container_perfil.dart';
-import 'package:project_c/db/db_helper.dart';
+import 'package:project_c/db/propriedade_dao.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -21,6 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   final UsuarioDao _usuarioDao = UsuarioDao();
   final ConfiguracaoDao _configDao = ConfiguracaoDao();
+  final PropriedadeDao _propriedadeDao = PropriedadeDao();
 
   @override
   void initState() {
@@ -32,24 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
     String nome = await _usuarioDao.getUsername();
     bool fs = await _configDao.getValor('full_screen');
     bool notif = await _configDao.getValor('notificacoes');
-
-    final db = await DBHelper().initDB();
-    final result = await db.rawQuery(
-      'SELECT urlimage, filme, ano, genero, nota, favorito FROM PROPRIEDADE WHERE favorito = 1;',
-    );
-    List<Propriedade> favoritos = result
-        .map(
-          (json) => Propriedade(
-            urlImage: json['urlimage'] as String,
-            filme: json['filme'] as String,
-            ano: json['ano'] as String,
-            genero: json['genero'] as String,
-            nota: (json['nota'] as num).toInt(),
-            favorito: (json['favorito'] as num).toInt(),
-          ),
-        )
-        .toList();
-
+    List<Propriedade> favoritos = await _propriedadeDao.listarFavoritos();
     setState(() {
       username = nome;
       fullScreen = fs;
