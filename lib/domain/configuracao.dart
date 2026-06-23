@@ -6,6 +6,6 @@ class Configuracao {
 
   Configuracao.fromJson(Map<String, dynamic> json) {
     chave = json['chave'];
-    valor = json['valor'] == '1';
+    valor = json['valor'] == 1;
   }
 }

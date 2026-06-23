@@ -9,7 +9,7 @@ class DBHelper {
 
     return await openDatabase(
       dbPath,
-      version: 4,
+      version: 5,
       onCreate: onCreateDB,
       onUpgrade: (db, oldVersion, newVersion) async {
         await db.execute('DROP TABLE IF EXISTS HISTORICO');
@@ -95,14 +95,14 @@ class DBHelper {
 
     await db.execute('''CREATE TABLE CONFIGURACAO (
       chave TEXT PRIMARY KEY,
-      valor TEXT NOT NULL
+      valor INTEGER NOT NULL
     );''');
 
     await db.execute(
-      "INSERT INTO CONFIGURACAO (chave, valor) VALUES ('full_screen', '0');",
+      "INSERT INTO CONFIGURACAO (chave, valor) VALUES ('full_screen', 0);",
     );
     await db.execute(
-      "INSERT INTO CONFIGURACAO (chave, valor) VALUES ('notificacoes', '0');",
+      "INSERT INTO CONFIGURACAO (chave, valor) VALUES ('notificacoes', 0);",
     );
 
     await db.execute('''CREATE TABLE ASSISTIR_MAIS_TARDE (

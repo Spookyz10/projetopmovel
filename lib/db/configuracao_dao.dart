@@ -10,7 +10,7 @@ class ConfiguracaoDao {
       [chave],
     );
     if (result.isNotEmpty) {
-      return result.first['valor'] == '1';
+      return result.first['valor'] == 1;
     }
     return false;
   }
@@ -18,7 +18,7 @@ class ConfiguracaoDao {
   Future<void> salvarValor(String chave, bool valor) async {
     Database db = await DBHelper().initDB();
     await db.rawUpdate('UPDATE CONFIGURACAO SET valor = ? WHERE chave = ?', [
-      valor ? '1' : '0',
+      valor ? 1 : 0,
       chave,
     ]);
   }
