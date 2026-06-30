@@ -47,16 +47,13 @@ class ContainerPerfil extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 Row(
-                  children: List.generate(
-                    5,
-                    (i) => Icon(
-                      Icons.star,
-                      size: 16,
-                      color: i < propriedade.nota
-                          ? Color(0xFF8B5CF6)
-                          : Colors.white24,
-                    ),
-                  ),
+                  children: [
+                    Icon(Icons.star, size: 16, color: Color(0xFF8B5CF6)),
+                    Icon(Icons.star, size: 16, color: Color(0xFF8B5CF6)),
+                    Icon(Icons.star, size: 16, color: Color(0xFF8B5CF6)),
+                    Icon(Icons.star, size: 16, color: Color(0xFF8B5CF6)),
+                    Icon(Icons.star, size: 16, color: Color(0xFF8B5CF6)),
+                  ],
                 ),
               ],
             ),

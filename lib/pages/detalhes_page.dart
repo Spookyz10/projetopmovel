@@ -11,47 +11,47 @@ class DetalhesPage extends StatefulWidget {
 }
 
 class _DetalhesPageState extends State<DetalhesPage> {
-  final AssistirMaisTardeDao _assistirDao = AssistirMaisTardeDao();
-  final PropriedadeDao _propriedadeDao = PropriedadeDao();
+  final AssistirMaisTardeDao assistirDao = AssistirMaisTardeDao();
+  final PropriedadeDao propriedadeDao = PropriedadeDao();
 
-  static const String _tituloFilme = 'O Auto da Compadecida';
-  bool _naLista = false;
-  bool _favorito = false;
+  static const String tituloFilme = 'O Auto da Compadecida';
+  bool naLista = false;
+  bool favorito = false;
 
   @override
   void initState() {
     super.initState();
-    _verificarNaLista();
-    _verificarFavorito();
+    verificarNaLista();
+    verificarFavorito();
   }
 
-  Future<void> _verificarNaLista() async {
-    final lista = await _assistirDao.listarAssistirMaisTarde();
-    final estaNA = lista.any((f) => f.titulo == _tituloFilme);
-    setState(() => _naLista = estaNA);
+  Future<void> verificarNaLista() async {
+    final lista = await assistirDao.listarAssistirMaisTarde();
+    final estaNA = lista.any((f) => f.titulo == tituloFilme);
+    setState(() => naLista = estaNA);
   }
 
-  Future<void> _verificarFavorito() async {
-    final lista = await _propriedadeDao.listarPropriedades();
-    final prop = lista.firstWhere((p) => p.filme == _tituloFilme);
-    setState(() => _favorito = prop.favorito == 1);
+  Future<void> verificarFavorito() async {
+    final lista = await propriedadeDao.listarPropriedades();
+    final prop = lista.firstWhere((p) => p.filme == tituloFilme);
+    setState(() => favorito = prop.favorito == 1);
   }
 
-  Future<void> _toggleAssistirMaisTarde() async {
-    if (_naLista) {
-      await _assistirDao.removerAssistirMaisTarde(_tituloFilme);
+  Future<void> toggleAssistirMaisTarde() async {
+    if (naLista) {
+      await assistirDao.removerAssistirMaisTarde(tituloFilme);
     } else {
-      await _assistirDao.inserirAssistirMaisTarde(
-        AssistirMaisTarde(titulo: _tituloFilme),
+      await assistirDao.inserirAssistirMaisTarde(
+        AssistirMaisTarde(titulo: tituloFilme),
       );
     }
-    setState(() => _naLista = !_naLista);
+    setState(() => naLista = !naLista);
   }
 
-  Future<void> _toggleFavorito() async {
-    final novoValor = _favorito ? 0 : 1;
-    await _propriedadeDao.toggleFavorito(_tituloFilme, novoValor);
-    setState(() => _favorito = !_favorito);
+  Future<void> toggleFavorito() async {
+    final novoValor = favorito ? 0 : 1;
+    await propriedadeDao.toggleFavorito(tituloFilme, novoValor);
+    setState(() => favorito = !favorito);
   }
 
   @override
@@ -115,7 +115,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                   top: 300,
                   left: 16,
                   child: Text(
-                    _tituloFilme,
+                    tituloFilme,
                     style: TextStyle(fontSize: 24, color: Colors.white),
                   ),
                 ),
@@ -258,11 +258,11 @@ class _DetalhesPageState extends State<DetalhesPage> {
                         child: Container(
                           height: 60,
                           decoration: BoxDecoration(
-                            color: _favorito
+                            color: favorito
                                 ? Color(0xFFEC4899).withValues(alpha: 0.2)
                                 : Color(0xFF5B21B6).withValues(alpha: 0.2),
                             border: Border.all(
-                              color: _favorito
+                              color: favorito
                                   ? Color(0xFFEC4899)
                                   : Color(0xFF5B21B6),
                               width: 2,
@@ -271,12 +271,12 @@ class _DetalhesPageState extends State<DetalhesPage> {
                           ),
                           child: IconButton(
                             icon: Icon(
-                              _favorito ? Icons.star : Icons.star_border,
-                              color: _favorito
+                              favorito ? Icons.star : Icons.star_border,
+                              color: favorito
                                   ? Color(0xFFEC4899)
                                   : Colors.white,
                             ),
-                            onPressed: _toggleFavorito,
+                            onPressed: toggleFavorito,
                           ),
                         ),
                       ),
@@ -306,11 +306,11 @@ class _DetalhesPageState extends State<DetalhesPage> {
                         child: Container(
                           height: 60,
                           decoration: BoxDecoration(
-                            color: _naLista
+                            color: naLista
                                 ? Color(0xFFEC4899).withValues(alpha: 0.2)
                                 : Color(0xFF5B21B6).withValues(alpha: 0.2),
                             border: Border.all(
-                              color: _naLista
+                              color: naLista
                                   ? Color(0xFFEC4899)
                                   : Color(0xFF5B21B6),
                               width: 2,
@@ -320,11 +320,9 @@ class _DetalhesPageState extends State<DetalhesPage> {
                           child: IconButton(
                             icon: Icon(
                               Icons.watch_later,
-                              color: _naLista
-                                  ? Color(0xFFEC4899)
-                                  : Colors.white,
+                              color: naLista ? Color(0xFFEC4899) : Colors.white,
                             ),
-                            onPressed: _toggleAssistirMaisTarde,
+                            onPressed: toggleAssistirMaisTarde,
                           ),
                         ),
                       ),

@@ -26,6 +26,12 @@ class ConfiguracaoDao {
   Future<List<Configuracao>> listarConfiguracoes() async {
     Database db = await DBHelper().initDB();
     var result = await db.rawQuery('SELECT * FROM CONFIGURACAO;');
-    return result.map((json) => Configuracao.fromJson(json)).toList();
+
+    List<Configuracao> configuracoes = [];
+    for (var json in result) {
+      configuracoes.add(Configuracao.fromJson(json));
+    }
+
+    return configuracoes;
   }
 }
