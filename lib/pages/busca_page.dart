@@ -12,6 +12,7 @@ class BuscaPage extends StatefulWidget {
   @override
   State<BuscaPage> createState() => _BuscaPageState();
 }
+
 class _BuscaPageState extends State<BuscaPage> {
   TextEditingController controller = TextEditingController();
 
@@ -21,6 +22,13 @@ class _BuscaPageState extends State<BuscaPage> {
   @override
   void initState() {
     super.initState();
+    loadData();
+  }
+
+  void loadData() async {
+    listaPopular = await PopularDao().listarPopular();
+    listaHistorico = await HistoricoDao().listarHistorico();
+    setState(() {});
   }
 
   @override
@@ -89,4 +97,3 @@ class _BuscaPageState extends State<BuscaPage> {
     );
   }
 }
-
