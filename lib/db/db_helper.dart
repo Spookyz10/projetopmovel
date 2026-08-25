@@ -1,3 +1,6 @@
+//O banco de dados serve apenas para criar as tabelas e
+// gerenciar as versões dos dados (onUpgrades).
+
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -24,7 +27,7 @@ class DBHelper {
   }
 
   FutureOr<void> onCreateDB(Database db, int version) async {
-    // tabela de historico
+    //SYLVIA.
     await db.execute('''CREATE TABLE HISTORICO (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       termo TEXT NOT NULL
@@ -37,7 +40,7 @@ class DBHelper {
       "INSERT INTO HISTORICO (termo) VALUES ('Tropa de Elite');",
     );
 
-    // tabela de filmes populares
+    //SYLVIA.
     await db.execute('''CREATE TABLE POPULAR (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       titulo TEXT NOT NULL
@@ -49,13 +52,6 @@ class DBHelper {
     await db.execute(
       "INSERT INTO POPULAR (titulo) VALUES ('O Auto da Compadecida');",
     );
-
-    await db.execute('''CREATE TABLE USUARIO (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      username TEXT NOT NULL
-    );''');
-
-    await db.execute("INSERT INTO USUARIO (username) VALUES ('Usuario');");
 
     /*KET DATABASE*/
     await db.execute('''CREATE TABLE PROPRIEDADE (
@@ -93,6 +89,7 @@ class DBHelper {
       "INSERT INTO PROPRIEDADE (urlimage, filme, ano, genero, nota, favorito) VALUES ('assets/OCangaceiro.png', 'O Cangaceiro', '1953', 'Drama / Faroeste', 3, 0);",
     );
 
+    //ÁLVARO.
     await db.execute('''CREATE TABLE CONFIGURACAO (
       chave TEXT PRIMARY KEY,
       valor INTEGER NOT NULL
@@ -105,10 +102,19 @@ class DBHelper {
       "INSERT INTO CONFIGURACAO (chave, valor) VALUES ('notificacoes', 0);",
     );
 
+    //BRUNO CÉSAR.
     await db.execute('''CREATE TABLE ASSISTIR_MAIS_TARDE (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       titulo TEXT NOT NULL UNIQUE
     );''');
+
+    //ÚSUARIO.
+    await db.execute('''CREATE TABLE USER (
+      username TEXT PRIMARY KEY,
+      password TEXT
+    );''');
+
+    await db.execute("INSERT INTO USUARIO (username, password) VALUES ('GitGit'. '12345');");
   }
 }
 //1 é favorito, 0 filme não favorito

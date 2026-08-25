@@ -1,10 +1,13 @@
+//Cada tabela no banco de dados nescessita de uma file para ela, pois ela
+//serve para colocar ou tirar coisas (infromações) de dentro do banco.
+//Ket
+
 import 'package:project_c/db/db_helper.dart';
 import 'package:project_c/domain/propriedade.dart';
 import 'package:sqflite/sqflite.dart';
 
 class PropriedadeDao {
   // parte de alvaro mateus
-
   Future<void> toggleFavorito(String filme, int valor) async {
     Database db = await DBHelper().initDB();
     await db.rawUpdate('UPDATE PROPRIEDADE SET favorito = ? WHERE filme = ?;', [
@@ -12,6 +15,7 @@ class PropriedadeDao {
       filme,
     ]);
   } // fim da parte de alvaro mateus
+
 
   Future<List<Propriedade>> listarPropriedades() async {
     //Acessando o Banco de Dados
@@ -28,8 +32,10 @@ class PropriedadeDao {
       //Add Propriedades na Lista
       listaPropriedades.add(propriedade);
     }
+
+    //simula um atraso intencional de 5s
+    await Future.delayed(Duration(seconds: 5));
     return listaPropriedades;
-    ;
   }
 
   //lista apenas para buscar os favoritos
@@ -46,6 +52,7 @@ class PropriedadeDao {
       lista.add(Propriedade.fromJson(json));
     }
 
+    await Future.delayed(Duration(seconds: 5));
     return lista;
   }
 }
