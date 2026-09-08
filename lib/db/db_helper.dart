@@ -107,14 +107,6 @@ class DBHelper {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       titulo TEXT NOT NULL UNIQUE
     );''');
-
-    //ÚSUARIO.
-    await db.execute('''CREATE TABLE USER (
-      username TEXT PRIMARY KEY,
-      password TEXT
-    );''');
-
-    await db.execute("INSERT INTO USUARIO (username, password) VALUES ('GitGit'. '12345');");
   }
 }
 //1 é favorito, 0 filme não favorito

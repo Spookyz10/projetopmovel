@@ -1,3 +1,5 @@
+// Serve para análisar se o usúario já esteve conectado antes
+//e n precise passar pela tela de login.
 //KET
 import 'package:shared_preferences/shared_preferences.dart';
 

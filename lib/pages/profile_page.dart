@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_c/db/usuario_dao.dart';
 import 'package:project_c/db/configuracao_dao.dart';
 
 import 'package:project_c/domain/propriedade.dart';
