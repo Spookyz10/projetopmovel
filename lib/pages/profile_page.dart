@@ -18,7 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
   bool notificacoes = false;
   List<Propriedade> _favoritos = [];
 
-  final UsuarioDao _usuarioDao = UsuarioDao();
+
   final ConfiguracaoDao _configDao = ConfiguracaoDao();
   final PropriedadeDao _propriedadeDao = PropriedadeDao();
 
@@ -29,12 +29,12 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _carregarDados() async {
-    String nome = await _usuarioDao.getUsername();
+
     bool fs = await _configDao.getValor('full_screen');
     bool notif = await _configDao.getValor('notificacoes');
     List<Propriedade> favoritos = await _propriedadeDao.listarFavoritos();
     setState(() {
-      username = nome;
+
       fullScreen = fs;
       notificacoes = notif;
       _favoritos = favoritos;
@@ -71,7 +71,6 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () async {
               String novoNome = editController.text.trim();
               if (novoNome.isNotEmpty) {
-                await _usuarioDao.salvarUsername(novoNome);
                 setState(() {
                   username = novoNome;
                 });
