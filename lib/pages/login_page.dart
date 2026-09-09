@@ -159,5 +159,5 @@ class _LoginPageState extends State<LoginPage> {
       borderSide: BorderSide(color: Colors.grey),
       borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
     );
-  }
+  };
 }
