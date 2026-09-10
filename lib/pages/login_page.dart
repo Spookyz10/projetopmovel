@@ -8,7 +8,7 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF8B5CF6), // Roxo do app
-                  padding: const EdgeInsets.vertical(14),
+                  padding: const EdgeInsets.symmetric(vertical:14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,
                   side: const BorderSide(color: Color(0xFF8B5CF6)),
-                  padding: const EdgeInsets.vertical(14),
+                  padding: const EdgeInsets.symmetric(vertical:14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -159,5 +159,5 @@ class _LoginPageState extends State<LoginPage> {
       borderSide: BorderSide(color: Colors.grey),
       borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
     );
-  };
+  }
 }
