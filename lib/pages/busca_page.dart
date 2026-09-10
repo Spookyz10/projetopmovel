@@ -16,46 +16,28 @@ class BuscaPage extends StatefulWidget {
 class _BuscaPageState extends State<BuscaPage> {
   TextEditingController controller = TextEditingController();
 
-  List<Popular> listaPopular = [];
-  List<Historico> listaHistorico = [];
+  //List<Popular> listaPopular = [];
+  //List<Historico> listaHistorico = [];
+  late Future<List<Historico>> futureHistorico;
+  late Future<List<Popular>> futurePopular;
 
   @override
   void initState() {
     super.initState();
-    loadData();
-  }
-
-  void loadData() async {
-    listaPopular = await PopularDao().listarPopular();
-    listaHistorico = await HistoricoDao().listarHistorico();
-    setState(() {});
+    futureHistorico = HistoricoDao().listarHistorico();
+    futurePopular = PopularDao().listarPopular();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0E0E10),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF0E0E10),
-        title: TextField(
-          controller: controller,
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            hintText: "Buscar filmes...",
-            hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
-            border: InputBorder.none,
-          ),
-          onSubmitted: (value) {
-            controller.clear();
-          },
-        ),
-      ),
+      appBar: buildAppBar(),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // histórico
             Text(
               "Histórico de Busca",
               style: TextStyle(
@@ -63,37 +45,86 @@ class _BuscaPageState extends State<BuscaPage> {
                 fontSize: 16,
               ),
             ),
-            SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: listaHistorico.length,
-                itemBuilder: (context, index) {
-                  return ContainerHistorico(termo: listaHistorico[index].termo);
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 45,
+              child: FutureBuilder(
+                future: futureHistorico,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<Historico> listaHistorico = snapshot.requireData;
+                    return buildHistoricoListView(listaHistorico);
+                  }
+
+                  return const Center(child: CircularProgressIndicator());
                 },
               ),
             ),
-            SizedBox(height: 30),
 
-            // populares
+            const SizedBox(height: 30),
+
             Text(
-              "Mais pesquisados",
+              "Resultados da Pesquisa",
               style: TextStyle(
                 color: Colors.white.withOpacity(0.7),
                 fontSize: 16,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
-              child: ListView.builder(
-                itemCount: listaPopular.length,
-                itemBuilder: (context, index) {
-                  return ContainerPopular(titulo: listaPopular[index].titulo);
+              child: FutureBuilder(
+                future: futurePopular,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<Popular> listaPopular = snapshot.requireData;
+                    return buildPopularListView(listaPopular);
+                  }
+
+                  return const Center(child: CircularProgressIndicator());
                 },
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  buildAppBar() {
+    return AppBar(
+      backgroundColor: const Color(0xFF0E0E10),
+      title: TextField(
+        controller: controller,
+        style: const TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          hintText: "Buscar filmes...",
+          hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+          border: InputBorder.none,
+          suffixIcon: const Icon(Icons.search, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  buildHistoricoListView(List<Historico> listaHistorico) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: listaHistorico.length,
+      itemBuilder: (context, i) {
+        return Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: ContainerHistorico(termo: listaHistorico[i].termo),
+        );
+      },
+    );
+  }
+
+  buildPopularListView(List<Popular> listaPopular) {
+    return ListView.builder(
+      itemCount: listaPopular.length,
+      itemBuilder: (context, i) {
+        return ContainerPopular(titulo: listaPopular[i].titulo);
+      },
     );
   }
 }
