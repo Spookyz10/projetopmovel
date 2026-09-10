@@ -5,7 +5,9 @@ class Popular {
     required this.titulo
   });
 
-  Popular.fromJson(Map<String, dynamic> json){
-    titulo = json['titulo'];
+  factory Popular.fromJson(Map<String, dynamic> json){
+    return Popular(
+      titulo: json['name'] ?? '',
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_c/api/brasil_api_feriados.dart';
 import 'package:project_c/db/popular_dao.dart';
 import 'package:project_c/db/historico_dao.dart';
 import 'package:project_c/domain/popular.dart';
@@ -25,7 +26,8 @@ class _BuscaPageState extends State<BuscaPage> {
   void initState() {
     super.initState();
     futureHistorico = HistoricoDao().listarHistorico();
-    futurePopular = PopularDao().listarPopular();
+    //futurePopular = PopularDao().listarPopular();
+    futurePopular = BrasilApiFeriados().listarFeriados();
   }
 
   @override
@@ -64,7 +66,7 @@ class _BuscaPageState extends State<BuscaPage> {
             const SizedBox(height: 30),
 
             Text(
-              "Resultados da Pesquisa",
+              "Especiais & Maratona de Feriados",
               style: TextStyle(
                 color: Colors.white.withOpacity(0.7),
                 fontSize: 16,
