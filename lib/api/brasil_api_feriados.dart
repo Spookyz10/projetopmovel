@@ -9,10 +9,12 @@ class BrasilApiFeriados {
     final response = await dio.get('$baseUrl/2026');
 
     List<Popular> listaPopular = [];
-    for (var json in response.data) {
-      Popular popular = Popular.fromJson(json);
-      listaPopular.add(popular);
+    if (response.statusCode == 200) {
+      for (var json in response.data) {
+        Popular popular = Popular.fromJson(json);
+        listaPopular.add(popular);
+      }
     }
-    return listaPopular;
+      return listaPopular;
   }
 }

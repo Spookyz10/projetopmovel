@@ -1,5 +1,5 @@
 class Popular {
-  late String titulo;
+  final String titulo;
 
   Popular ({
     required this.titulo
