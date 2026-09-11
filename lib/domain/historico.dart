@@ -1,9 +1,16 @@
 class Historico {
-  late String termo;
+  final String termo;
+  final int id;
 
-  Historico({required this.termo});
+  Historico({
+    required this.termo,
+    required this.id
+  });
 
-  Historico.fromJson(Map<String, dynamic> json) {
-    termo = json['termo'];
+  factory Historico.fromJson(Map<String, dynamic> json) {
+    return Historico(
+      id: json['id'],
+      termo: json['termo'] ?? '',
+    );
   }
 }

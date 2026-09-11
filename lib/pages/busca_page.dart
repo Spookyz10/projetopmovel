@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_c/api/brasil_api_feriados.dart';
+import 'package:project_c/api/fake_api_historico.dart';
 import 'package:project_c/db/popular_dao.dart';
 import 'package:project_c/db/historico_dao.dart';
 import 'package:project_c/domain/popular.dart';
@@ -25,9 +26,10 @@ class _BuscaPageState extends State<BuscaPage> {
   @override
   void initState() {
     super.initState();
-    futureHistorico = HistoricoDao().listarHistorico();
+    //futureHistorico = HistoricoDao().listarHistorico();
     //futurePopular = PopularDao().listarPopular();
     futurePopular = BrasilApiFeriados().listarFeriados();
+    futureHistorico = HistoricoApi().listarHistorico();
   }
 
   @override
