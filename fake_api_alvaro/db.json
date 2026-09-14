@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "alvaro@email.com",
+      "password": "123456",
+      "profileId": 1
+    }
+  ],
+  "profiles": [
+    {
+      "id": 1,
+      "name": "Álvaro Mateus",
+      "username": "@alvaromateus",
+      "avatarUrl": "https://i.pravatar.cc/300?img=12",
+      "bio": "Apaixonado por cinema brasileiro, comédia e boas histórias.",
+      "memberSince": "Março de 2026",
+      "watchedMovies": 24,
+      "favoritesCount": 8,
+      "reviewsCount": 6,
+      "favoriteGenres": ["Cinema brasileiro", "Comédia", "Drama"],
+      "recentReviews": [
+        {
+          "movieId": 40096,
+          "movieTitle": "O Auto da Compadecida",
+          "rating": 4.8,
+          "comment": "Um clássico divertido e cheio de personalidade."
+        },
+        {
+          "movieId": 598,
+          "movieTitle": "Cidade de Deus",
+          "rating": 4.7,
+          "comment": "Direção marcante e atuações memoráveis."
+        }
+      ]
+    }
+  ]
+}
