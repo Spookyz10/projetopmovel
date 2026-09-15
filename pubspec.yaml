@@ -16,6 +16,7 @@ dependencies:
   font_awesome_flutter: 
   shared_preferences:
   dio:
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:
