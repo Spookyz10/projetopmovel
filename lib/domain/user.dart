@@ -5,14 +5,16 @@ class User {
   late String username;
   late String password;
 
+  //construtor padrao, cria os dois carinhas
   User(this.username, this.password);
 
   User.fromJson(Map json) {
-    // {  ["username": "valor", "password": "valor"], [], []   }
     username = json["username"];
     password = json["password"];
   }
 
+  //contrario, caso eu precise atualizar,
+  //criar ou fazer algo que nescessite enviar para a api
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
     json["username"] = username;

@@ -1,5 +1,5 @@
 //KET
-
+//primeira tea q vamos ver ao abrir o app
 import 'package:project_c/db/shared_prefs.dart';
 import 'package:project_c/pages/home_page.dart';
 import 'package:project_c/pages/login_page.dart';
@@ -9,6 +9,7 @@ class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
+  //mandar consultar o status do login
   State<SplashPage> createState() => _SplashPageState();
 }
 
@@ -18,15 +19,18 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
+    //inicia a verificação e o time
     loadData();
   }
 
   loadData() async {
+    //assincrona, ja sabe para onde ir
+    //busca se ele ja esta logado
     bool status = await prefs.getUserStatus();
+    //ele atrsa de proposito
     await Future.delayed(Duration(seconds: 3));
 
-    // status == true --> true
-    // status == true --> false
+    //se for true, home
     if (status) {
       Navigator.pushReplacement(
         context,
@@ -50,11 +54,13 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFFE395C),
+    return const Scaffold(
+      backgroundColor: Color(0xFF9239FE), // Corrigido para 8 dígitos
       body: Center(
-        child: Image.network(
-          'https://a0.muscache.com/pictures/09104ce1-4a66-4284-80b2-ad0ea3e46c24.jpg',
+        child: Icon(
+          Icons.movie,
+          size: 80,
+          color: Colors.white,
         ),
       ),
     );

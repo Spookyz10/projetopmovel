@@ -1,7 +1,8 @@
 //KET
 import 'package:flutter/material.dart';
 import 'package:project_c/db/shared_prefs.dart';
-import 'package:project_c/db/user_dao.dart';
+import 'package:project_c/api/auth_api.dart';
+import 'package:project_c/domain/user.dart';
 import 'package:project_c/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,14 +13,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  //salva/ler o login
   SharedPrefs prefs = SharedPrefs();
+  //captura os textos digitados nos campos
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212), // Fundo escuro igual ao do app
+      backgroundColor: const Color(0xFF121212),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(32),
@@ -27,11 +30,10 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Ícone ou Logo
               const Icon(
                 Icons.movie_creation_outlined,
                 size: 72,
-                color: Color(0xFF8B5CF6), // Roxo do tema
+                color: Color(0xFF8B5CF6),
               ),
               const SizedBox(height: 16),
               const Text(
@@ -45,8 +47,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 32),
 
-              // Campo de Usuário
+              // usuário:
               TextField(
+                //vincula a caixinha ao controlador do usuario
                 controller: userController,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
@@ -59,9 +62,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              // Campo de Senha
+              // senha:
               TextField(
                 controller: passwordController,
+                // pontinhos
                 obscureText: true,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
@@ -75,43 +79,21 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 24),
 
-              // Botão Entrar
+              // Botão:
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF8B5CF6), // Roxo do app
-                  padding: const EdgeInsets.symmetric(vertical:14),
+                  backgroundColor: const Color(0xFF8B5CF6),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
+                //executa a validação ao ser clicado
                 onPressed: onPressed,
                 child: const Text(
                   'Entrar',
                   style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-
-              // Botão Cadastrar Usuário
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  side: const BorderSide(color: Color(0xFF8B5CF6)),
-                  padding: const EdgeInsets.symmetric(vertical:14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  'Cadastrar Usuário',
-                  style: TextStyle(
-                    color: Color(0xFF8B5CF6),
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
                   ),
@@ -124,16 +106,21 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+
   onPressed() async {
     String username = userController.text;
     String password = passwordController.text;
 
-    bool isAuth = await UserDao().login(username, password);
+    // chama a authapi
+    User? user = await AuthApi().login(username, password);
 
-    if (isAuth) {
+    // se a api retornar um objeto válido, faz o login
+    if (user != null) {
+      //salva o estado
       prefs.setUserStatus(true);
-
+      //ele n se desconectar navegando
       if (!mounted) return;
+      //vai para a home
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -143,10 +130,15 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     } else {
-      print('Usuário e/ou senha incorretos');
+      //se caso der erro
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Usuário ou senha incorretos!')),
+      );
     }
   }
 
+  //circulo
   OutlineInputBorder buildUserOutlineInputBorder() {
     return const OutlineInputBorder(
       borderSide: BorderSide(color: Colors.grey),
