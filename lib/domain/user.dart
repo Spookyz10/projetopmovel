@@ -1,4 +1,6 @@
 //KET
+// Serve para traduzir os dados que vem da api e estao em texto comum
+// para a linguagem que dart entenda
 class User {
   late String username;
   late String password;
