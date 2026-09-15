@@ -5,6 +5,8 @@
       "name": "CineBrasil (com APIs)",
       "request": "launch",
       "type": "dart",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}",
       "toolArgs": [
         "--dart-define-from-file=config/local.json"
       ]

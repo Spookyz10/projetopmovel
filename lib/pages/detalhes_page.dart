@@ -27,7 +27,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
   void initState() {
     super.initState();
     _tmdbApi = widget.api ?? TmdbApi();
-    _movieFuture = _tmdbApi.getMovieDetails();
+    _movieFuture = _loadMovie();
     _loadLocalState();
   }
 
@@ -50,8 +50,21 @@ class _DetalhesPageState extends State<DetalhesPage> {
     }
   }
 
+  Future<MovieDetails> _loadMovie() async {
+    if (_tmdbApi.accessToken.trim().isEmpty && widget.api == null) {
+      throw Exception(
+        'A configuração da TMDB não foi carregada nesta compilação. '
+        'Pare o app e inicie pelo F5 usando CineBrasil (com APIs), '
+        'com TMDB_ACCESS_TOKEN preenchido em config/local.json.',
+      );
+    }
+    return _tmdbApi.getMovieDetails();
+  }
+
   void _reload() {
-    setState(() => _movieFuture = _tmdbApi.getMovieDetails());
+    setState(() {
+      _movieFuture = _loadMovie();
+    });
   }
 
   Future<void> _toggleWatchLater() async {
