@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:project_c/api/tmdb_api.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:project_c/api/tvmaze_api.dart';
 import 'package:project_c/db/assistir_mais_tarde_dao.dart';
 import 'package:project_c/db/propriedade_dao.dart';
 import 'package:project_c/domain/assistir_mais_tarde.dart';
 import 'package:project_c/domain/movie_details.dart';
 
 class DetalhesPage extends StatefulWidget {
-  final TmdbApi? api;
+  final TvmazeApi? api;
 
   const DetalhesPage({super.key, this.api});
 
@@ -16,7 +17,7 @@ class DetalhesPage extends StatefulWidget {
 
 class _DetalhesPageState extends State<DetalhesPage> {
   static const _movieTitle = 'O Auto da Compadecida';
-  late final TmdbApi _tmdbApi;
+  late final TvmazeApi _tvmazeApi;
   final AssistirMaisTardeDao _watchLaterDao = AssistirMaisTardeDao();
   final PropriedadeDao _propertyDao = PropriedadeDao();
   late Future<MovieDetails> _movieFuture;
@@ -26,7 +27,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
   @override
   void initState() {
     super.initState();
-    _tmdbApi = widget.api ?? TmdbApi();
+    _tvmazeApi = widget.api ?? TvmazeApi();
     _movieFuture = _loadMovie();
     _loadLocalState();
   }
@@ -45,20 +46,11 @@ class _DetalhesPageState extends State<DetalhesPage> {
           }
         }
       });
-    } catch (_) {
-      // A API continua utilizável caso o banco local esteja indisponível.
-    }
+    } catch (_) {}
   }
 
   Future<MovieDetails> _loadMovie() async {
-    if (_tmdbApi.accessToken.trim().isEmpty && widget.api == null) {
-      throw Exception(
-        'A configuração da TMDB não foi carregada nesta compilação. '
-        'Pare o app e inicie pelo F5 usando CineBrasil (com APIs), '
-        'com TMDB_ACCESS_TOKEN preenchido em config/local.json.',
-      );
-    }
-    return _tmdbApi.getMovieDetails();
+    return _tvmazeApi.getMovieDetails();
   }
 
   void _reload() {
@@ -92,7 +84,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
         foregroundColor: Colors.white,
         centerTitle: true,
         title: const Text(
-          'Detalhes do filme',
+          'Detalhes da minissérie',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -135,8 +127,8 @@ class _MovieView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backdrop = TmdbApi.imageUrl(movie.backdropPath, size: 'w1280');
-    final poster = TmdbApi.imageUrl(movie.posterPath, size: 'w342');
+    final backdrop = movie.backdropPath;
+    final poster = movie.posterPath;
     return ListView(
       children: [
         SizedBox(
@@ -194,18 +186,10 @@ class _MovieView extends StatelessWidget {
                 runSpacing: 8,
                 children: [
                   _InfoChip(
-                    icon: Icons.star_rounded,
-                    label: movie.voteAverage.toStringAsFixed(1),
-                  ),
-                  _InfoChip(
                     icon: Icons.schedule_rounded,
-                    label: movie.formattedRuntime,
+                    label: '${movie.formattedRuntime}',
                   ),
                   _InfoChip(icon: Icons.calendar_month, label: movie.year),
-                  _InfoChip(
-                    icon: Icons.person_outline,
-                    label: movie.certification,
-                  ),
                 ],
               ),
               const SizedBox(height: 22),
@@ -243,7 +227,7 @@ class _MovieView extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 movie.overview.isEmpty
-                    ? 'Sinopse não disponível em português.'
+                    ? 'Sinopse não disponível.'
                     : movie.overview,
                 style: const TextStyle(
                   color: Colors.white70,
@@ -251,10 +235,6 @@ class _MovieView extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
-              const SizedBox(height: 24),
-              const _SectionTitle('Direção'),
-              const SizedBox(height: 8),
-              Text(movie.director, style: const TextStyle(color: Colors.white)),
               if (movie.cast.isNotEmpty) ...[
                 const SizedBox(height: 24),
                 const _SectionTitle('Elenco principal'),
@@ -265,10 +245,14 @@ class _MovieView extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: 28),
-              const Center(
-                child: Text(
-                  'Dados fornecidos por TMDB',
-                  style: TextStyle(color: Colors.white38, fontSize: 12),
+              Center(
+                child: TextButton(
+                  onPressed: () => launchUrl(
+                    Uri.parse(
+                      'https://www.tvmaze.com/shows/80233/o-auto-da-compadecida',
+                    ),
+                  ),
+                  child: const Text('Dados: TVMaze • Minissérie de 1999'),
                 ),
               ),
             ],
@@ -412,7 +396,7 @@ class _LoadingView extends StatelessWidget {
           CircularProgressIndicator(color: Color(0xFF8B5CF6)),
           SizedBox(height: 16),
           Text(
-            'Buscando dados na TMDB…',
+            'Buscando dados na TVMaze…',
             style: TextStyle(color: Colors.white70),
           ),
         ],
@@ -441,7 +425,7 @@ class _ErrorView extends StatelessWidget {
             ),
             const SizedBox(height: 18),
             const Text(
-              'Não foi possível carregar o filme',
+              'Não foi possível carregar os detalhes',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,

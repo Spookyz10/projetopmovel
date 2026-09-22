@@ -1,13 +1,42 @@
 import 'package:dio/dio.dart';
 import 'package:project_c/domain/serie.dart';
+import 'package:project_c/domain/movie_details.dart';
 
 class TvmazeApi {
-  final Dio _dio = Dio(
-    BaseOptions(
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
-    ),
-  );
+  final Dio _dio;
+
+  TvmazeApi({Dio? dio})
+    : _dio =
+          dio ??
+          Dio(
+            BaseOptions(
+              connectTimeout: const Duration(seconds: 10),
+              receiveTimeout: const Duration(seconds: 10),
+            ),
+          );
+
+  Future<MovieDetails> getMovieDetails({int showId = 80233}) async {
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        'https://api.tvmaze.com/shows/$showId',
+        queryParameters: {'embed': 'cast'},
+      );
+      final data = response.data;
+      if (data == null) throw const FormatException('Resposta vazia.');
+      return MovieDetails.fromJson(data);
+    } on DioException catch (error) {
+      if (error.response?.statusCode == 404) {
+        throw Exception('Título não encontrado na TVMaze.');
+      }
+      throw Exception(
+        'Não foi possível consultar a TVMaze. Verifique sua conexão.',
+      );
+    } on FormatException {
+      throw Exception('Os detalhes chegaram em um formato inesperado.');
+    } on TypeError {
+      throw Exception('Os detalhes chegaram em um formato inesperado.');
+    }
+  }
 
   Future<List<Serie>> listarSeries() async {
     try {
@@ -17,7 +46,7 @@ class TvmazeApi {
       );
       final data = response.data;
       if (data == null) throw const FormatException('Resposta vazia.');
-      // A API pagina até 250 séries. A Home exibe somente os primeiros 12 itens.
+
       return data
           .take(12)
           .map((item) => Serie.fromJson(item as Map<String, dynamic>))

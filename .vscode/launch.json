@@ -2,14 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "CineBrasil (com APIs)",
+      "name": "CineBrasil",
       "request": "launch",
       "type": "dart",
       "program": "lib/main.dart",
-      "cwd": "${workspaceFolder}",
-      "toolArgs": [
-        "--dart-define-from-file=config/local.json"
-      ]
+      "cwd": "${workspaceFolder}"
     }
   ]
 }
