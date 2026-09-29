@@ -15,29 +15,6 @@ class TvmazeApi {
             ),
           );
 
-  Future<MovieDetails> getMovieDetails({int showId = 80233}) async {
-    try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        'https://api.tvmaze.com/shows/$showId',
-        queryParameters: {'embed': 'cast'},
-      );
-      final data = response.data;
-      if (data == null) throw const FormatException('Resposta vazia.');
-      return MovieDetails.fromJson(data);
-    } on DioException catch (error) {
-      if (error.response?.statusCode == 404) {
-        throw Exception('Título não encontrado na TVMaze.');
-      }
-      throw Exception(
-        'Não foi possível consultar a TVMaze. Verifique sua conexão.',
-      );
-    } on FormatException {
-      throw Exception('Os detalhes chegaram em um formato inesperado.');
-    } on TypeError {
-      throw Exception('Os detalhes chegaram em um formato inesperado.');
-    }
-  }
-
   Future<List<Serie>> listarSeries() async {
     try {
       final response = await _dio.get<List<dynamic>>(

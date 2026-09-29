@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:project_c/api/tvmaze_api.dart';
 import 'package:project_c/db/assistir_mais_tarde_dao.dart';
 import 'package:project_c/db/propriedade_dao.dart';
 import 'package:project_c/domain/assistir_mais_tarde.dart';
-import 'package:project_c/domain/movie_details.dart';
 
 class DetalhesPage extends StatefulWidget {
-  final TvmazeApi? api;
-
-  const DetalhesPage({super.key, this.api});
+  const DetalhesPage({super.key});
 
   @override
   State<DetalhesPage> createState() => _DetalhesPageState();
@@ -17,18 +12,25 @@ class DetalhesPage extends StatefulWidget {
 
 class _DetalhesPageState extends State<DetalhesPage> {
   static const _movieTitle = 'O Auto da Compadecida';
-  late final TvmazeApi _tvmazeApi;
+  static const _movie = _StaticMovie(
+    title: _movieTitle,
+    overview:
+        'João Grilo e Chicó, dois nordestinos pobres e astutos, enfrentam '
+        'os poderosos de uma pequena cidade do sertão. Com humor e esperteza, '
+        'suas aventuras misturam crítica social, amizade e elementos da cultura popular brasileira.',
+    year: '2000',
+    runtime: '1h 44min',
+    genres: ['Comédia', 'Aventura', 'Drama'],
+    cast: ['Matheus Nachtergaele', 'Selton Mello', 'Fernanda Montenegro'],
+  );
   final AssistirMaisTardeDao _watchLaterDao = AssistirMaisTardeDao();
   final PropriedadeDao _propertyDao = PropriedadeDao();
-  late Future<MovieDetails> _movieFuture;
   bool _watchLater = false;
   bool _favorite = false;
 
   @override
   void initState() {
     super.initState();
-    _tvmazeApi = widget.api ?? TvmazeApi();
-    _movieFuture = _loadMovie();
     _loadLocalState();
   }
 
@@ -47,16 +49,6 @@ class _DetalhesPageState extends State<DetalhesPage> {
         }
       });
     } catch (_) {}
-  }
-
-  Future<MovieDetails> _loadMovie() async {
-    return _tvmazeApi.getMovieDetails();
-  }
-
-  void _reload() {
-    setState(() {
-      _movieFuture = _loadMovie();
-    });
   }
 
   Future<void> _toggleWatchLater() async {
@@ -88,30 +80,37 @@ class _DetalhesPageState extends State<DetalhesPage> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: FutureBuilder<MovieDetails>(
-        future: _movieFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const _LoadingView();
-          }
-          if (snapshot.hasError) {
-            return _ErrorView(error: snapshot.error, onRetry: _reload);
-          }
-          return _MovieView(
-            movie: snapshot.requireData,
-            favorite: _favorite,
-            watchLater: _watchLater,
-            onToggleFavorite: _toggleFavorite,
-            onToggleWatchLater: _toggleWatchLater,
-          );
-        },
+      body: _MovieView(
+        movie: _movie,
+        favorite: _favorite,
+        watchLater: _watchLater,
+        onToggleFavorite: _toggleFavorite,
+        onToggleWatchLater: _toggleWatchLater,
       ),
     );
   }
 }
 
+class _StaticMovie {
+  final String title;
+  final String overview;
+  final String year;
+  final String runtime;
+  final List<String> genres;
+  final List<String> cast;
+
+  const _StaticMovie({
+    required this.title,
+    required this.overview,
+    required this.year,
+    required this.runtime,
+    required this.genres,
+    required this.cast,
+  });
+}
+
 class _MovieView extends StatelessWidget {
-  final MovieDetails movie;
+  final _StaticMovie movie;
   final bool favorite;
   final bool watchLater;
   final VoidCallback onToggleFavorite;
@@ -127,8 +126,6 @@ class _MovieView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backdrop = movie.backdropPath;
-    final poster = movie.posterPath;
     return ListView(
       children: [
         SizedBox(
@@ -136,7 +133,16 @@ class _MovieView extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              _MovieImage(imageUrl: backdrop ?? poster),
+              Image.asset(
+                'assets/OAutoDaCompadecida.png',
+                fit: BoxFit.cover,
+                errorBuilder: (_, _, _) => const ColoredBox(
+                  color: Color(0xFF21152E),
+                  child: Center(
+                    child: Icon(Icons.movie_rounded, color: Colors.white54, size: 72),
+                  ),
+                ),
+              ),
               const DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -187,7 +193,7 @@ class _MovieView extends StatelessWidget {
                 children: [
                   _InfoChip(
                     icon: Icons.schedule_rounded,
-                    label: '${movie.formattedRuntime}',
+                    label: movie.runtime,
                   ),
                   _InfoChip(icon: Icons.calendar_month, label: movie.year),
                 ],
@@ -244,40 +250,10 @@ class _MovieView extends StatelessWidget {
                   style: const TextStyle(color: Colors.white70, height: 1.5),
                 ),
               ],
-              const SizedBox(height: 28),
-              Center(
-                child: TextButton(
-                  onPressed: () => launchUrl(
-                    Uri.parse(
-                      'https://www.tvmaze.com/shows/80233/o-auto-da-compadecida',
-                    ),
-                  ),
-                  child: const Text('Dados: TVMaze • Minissérie de 1999'),
-                ),
-              ),
             ],
           ),
         ),
       ],
-    );
-  }
-}
-
-class _MovieImage extends StatelessWidget {
-  final String? imageUrl;
-
-  const _MovieImage({required this.imageUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    if (imageUrl == null) {
-      return Image.asset('assets/OAutoDaCompadecida.png', fit: BoxFit.cover);
-    }
-    return Image.network(
-      imageUrl!,
-      fit: BoxFit.cover,
-      errorBuilder: (_, _, _) =>
-          Image.asset('assets/OAutoDaCompadecida.png', fit: BoxFit.cover),
     );
   }
 }
@@ -379,74 +355,6 @@ class _SectionTitle extends StatelessWidget {
         fontSize: 12,
         fontWeight: FontWeight.bold,
         letterSpacing: 1.2,
-      ),
-    );
-  }
-}
-
-class _LoadingView extends StatelessWidget {
-  const _LoadingView();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CircularProgressIndicator(color: Color(0xFF8B5CF6)),
-          SizedBox(height: 16),
-          Text(
-            'Buscando dados na TVMaze…',
-            style: TextStyle(color: Colors.white70),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ErrorView extends StatelessWidget {
-  final Object? error;
-  final VoidCallback onRetry;
-  const _ErrorView({required this.error, required this.onRetry});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(28),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.cloud_off_rounded,
-              color: Color(0xFFC084FC),
-              size: 64,
-            ),
-            const SizedBox(height: 18),
-            const Text(
-              'Não foi possível carregar os detalhes',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              error.toString().replaceFirst('Exception: ', ''),
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white60, height: 1.4),
-            ),
-            const SizedBox(height: 22),
-            OutlinedButton.icon(
-              onPressed: onRetry,
-              icon: const Icon(Icons.refresh),
-              label: const Text('Tentar novamente'),
-            ),
-          ],
-        ),
       ),
     );
   }
