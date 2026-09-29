@@ -27,7 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    _profileApi = widget.api ?? ProfileApi();
+    _profileApi = ProfileApi();
     _profileFuture = _profileApi.getProfile();
     _loadLocalData();
   }
@@ -45,9 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
         _notifications = values[1] as bool;
         _favorites = values[2] as List<Propriedade>;
       });
-    } catch (_) {
-      // O perfil remoto continua visível caso o banco local falhe.
-    }
+    } catch (_) {}
   }
 
   void _reload() {
@@ -199,7 +197,6 @@ class _ProfileHeader extends StatelessWidget {
                 ? const _AvatarFallback()
                 : Image.network(
                     profile.avatarUrl,
-                    fit: BoxFit.cover,
                     errorBuilder: (_, _, _) => const _AvatarFallback(),
                   ),
           ),
