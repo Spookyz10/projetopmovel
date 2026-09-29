@@ -25,7 +25,7 @@ class ProfileApi {
       );
       final data = response.data;
       if (data == null) {
-        throw const FormatException('A API fake retornou uma resposta vazia.');
+        throw Exception('A API fake retornou uma resposta vazia.');
       }
       return UserProfile.fromJson(data);
     } on DioException catch (error) {
