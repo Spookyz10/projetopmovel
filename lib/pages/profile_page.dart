@@ -39,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
         _configDao.getValor('notificacoes'),
         _propertyDao.listarFavoritos(),
       ]);
-      if (!mounted) return;
+
       setState(() {
         _fullScreen = values[0] as bool;
         _notifications = values[1] as bool;
@@ -466,7 +466,7 @@ class _ProfileError extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              error.toString().replaceFirst('Exception: ', ''),
+              "Error",
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.white60, height: 1.4),
             ),

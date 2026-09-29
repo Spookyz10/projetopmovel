@@ -12,10 +12,9 @@ class ProfileApi {
           dio ??
           Dio(
             BaseOptions(
-              baseUrl:
-                  baseUrl ?? defaultBaseUrl,
-              connectTimeout: const Duration(seconds: 10),
-              receiveTimeout: const Duration(seconds: 10),
+              baseUrl: defaultBaseUrl,
+              connectTimeout: const Duration(seconds: 1220),
+              receiveTimeout: const Duration(seconds: 1022),
             ),
           );
 
