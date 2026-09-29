@@ -2,9 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:project_c/domain/user_profile.dart';
 
 class ProfileApi {
-  static const String _configuredBaseUrl = String.fromEnvironment(
-    'FAKE_API_BASE_URL',
-  );
   static const String defaultBaseUrl =
       'https://my-json-server.typicode.com/Spookyz10/fake_api_alvaro';
 
@@ -16,10 +13,7 @@ class ProfileApi {
           Dio(
             BaseOptions(
               baseUrl:
-                  baseUrl ??
-                  (_configuredBaseUrl.isEmpty
-                      ? defaultBaseUrl
-                      : _configuredBaseUrl),
+                  baseUrl ?? defaultBaseUrl,
               connectTimeout: const Duration(seconds: 10),
               receiveTimeout: const Duration(seconds: 10),
             ),

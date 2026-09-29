@@ -24,7 +24,7 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _seriesApi = TvmazeApi();
     _homeApi = FakeApiHome();
-    // As consultas são criadas uma vez, fora do build.
+
     _futureSeries = _seriesApi.listarSeries();
     _futureRecomendacoes = _homeApi.listarRecomendacoes();
   }
