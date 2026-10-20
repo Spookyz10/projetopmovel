@@ -1,7 +1,7 @@
 //KET
 import 'package:flutter/material.dart';
 import 'package:project_c/db/shared_prefs.dart';
-import 'package:project_c/api/auth_api.dart';
+import 'package:project_c/api/propriedades_api.dart';
 import 'package:project_c/domain/user.dart';
 import 'package:project_c/pages/home_page.dart';
 
