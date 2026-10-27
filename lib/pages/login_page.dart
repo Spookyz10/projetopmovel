@@ -4,6 +4,7 @@ import 'package:project_c/db/shared_prefs.dart';
 import 'package:project_c/api/propriedades_api.dart';
 import 'package:project_c/domain/user.dart';
 import 'package:project_c/pages/home_page.dart';
+import 'package:project_c/db/user_dao.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,11 +14,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //salva/ler o login
   SharedPrefs prefs = SharedPrefs();
-  //captura os textos digitados nos campos
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  @override
+  void initState(){
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,29 +116,23 @@ class _LoginPageState extends State<LoginPage> {
     String password = passwordController.text;
 
     // chama a authapi
-    User? user = await AuthApi().login(username, password);
+    bool isAuth = await UserDao().login(username, password);
 
     // se a api retornar um objeto válido, faz o login
-    if (user != null) {
+    if (isAuth) {
       //salva o estado
-      prefs.setUserStatus(true);
-      //ele n se desconectar navegando
-      if (!mounted) return;
-      //vai para a home
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) {
-            return const HomePage();
+            return HomePage();
           },
         ),
       );
+
+      prefs.setUserStatus(true);
     } else {
-      //se caso der erro
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Usuário ou senha incorretos!')),
-      );
+      print('User e/ou passsword incorretos');
     }
   }
 
